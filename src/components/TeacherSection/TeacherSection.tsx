@@ -17,19 +17,40 @@ const TeacherSection: React.FC = () => {
         <div className="flex flex-col gap-5 items-center">
           <p className="text-2xl text-gray-700 font-semibold">Profesores</p>
           <div className="relative w-full rounded-md overflow-hidden" style={{ height: `${imageHeight}px` }}>
-            <Image src={picProf1} alt="Profesor" layout="fill" objectFit="cover" className="rounded-md" />
+            <Image
+              src={picProf1}
+              alt="Profesor"
+              fill={true}
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{objectFit: "cover"}}
+              className="rounded-md"
+            />
           </div>
         </div>
         <div className="flex flex-col gap-5 items-center">
           <p className="text-2xl text-gray-700 font-semibold">Directivos</p>
           <div className="relative w-full rounded-md overflow-hidden" style={{ height: `${imageHeight}px` }}>
-            <Image src={picProf2} alt="Directivo" layout="fill" objectFit="cover" className="rounded-md" />
+            <Image
+              src={picProf2}
+              alt="Directivo"
+              fill={true}
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{objectFit: "cover"}}
+              className="rounded-md"
+            />
           </div>
         </div>
         <div className="flex flex-col gap-5 items-center">
           <p className="text-2xl text-gray-700 font-semibold">Personal De Apoyo</p>
           <div className="relative w-full rounded-md overflow-hidden" style={{ height: `${imageHeight}px` }}>
-            <Image src={picProf3} alt="Personal de Apoyo" layout="fill" objectFit="cover" className="rounded-md" />
+            <Image
+              src={picProf3}
+              alt="Personal de Apoyo"
+              fill={true}
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{objectFit: "cover"}}
+              className="rounded-md"
+            />
           </div>
         </div>
       </div>

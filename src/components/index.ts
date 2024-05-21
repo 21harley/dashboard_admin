@@ -3,4 +3,5 @@ export * from './Navbar'
 export * from './ValuesSection'
 export * from './TeacherSection'
 export * from './StudentsSection'
+export * from './Footer'
 
