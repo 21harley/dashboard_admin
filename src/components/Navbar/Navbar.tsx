@@ -1,36 +1,44 @@
+import Image from 'next/image';
 import React from 'react';
 import { FaPencilAlt } from "react-icons/fa";
-
+import { logoIcon } from '@/src/assets/assets';
 
 const Navbar = () => {
   return (
-    <div className=' my-8'>
-      <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-5">
+    <div className='my-8 bg-white rounded-md px-4'>
+      <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-5 ">
         <div className='flex items-end'>
-          <FaPencilAlt className='text-labelBg text-4xl mr-2' />  <a href="#" className="font-bold text-2xl"> E.B MACHIRI</a>
+          <div className="flex items-center relative w-full rounded-md overflow-hidden" >
+            <Image src={logoIcon} alt="logoIcon" width={50} height={50} />
+            <a href="#" className="font-semibold  text-xl"> E.B MACHIRI</a>
+          </div>
+          
         </div>
         <ul className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-5">
           <li>
-            <a href="#" className="hover:text-labelBg">Courses</a>
+            <a href="#" className="hover:text-secondary">Mision</a>
           </li>
           <li>
-            <a href="#" className="hover:text-labelBg">About Us</a>
+            <a href="#" className="hover:text-secondary">Valores</a>
           </li>
           <li>
-            <a href="#" className="hover:text-labelBg">Teacher</a>
+            <a href="#" className="hover:text-secondary">Nuestra gente</a>
           </li>
           <li>
-            <a href="#" className="hover:text-labelBg">Pricing</a>
+            <a href="#" className="hover:text-secondary">Historia</a>
           </li>
           <li>
-            <a href="#" className="hover:text-labelBg">Careers</a>
+            <a href="#" className="hover:text-secondary">Estudiantes</a>
           </li>
           <li>
-            <a href="#" className="hover:text-labelBg">Blog</a>
+            <a href="#" className="hover:text-secondary">Locacion</a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-secondary">Redes</a>
           </li>
         </ul>
-        <button className='btn  m-4 text-white bg-labelBg border-none px-4 hover:border hover:border-purple-500 hover:bg-white hover:text-labelBg capitalize rounded-full'>
-        Entrar
+        <button className='btn m-4 text-white bg-secondary border-none p-3 hover:border hover:border-orange-900 hover:bg-white hover:text-secondary capitalize rounded-md'>
+          Entrar
         </button>
       </div>
     </div>

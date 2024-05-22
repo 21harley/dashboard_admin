@@ -1,3 +1,4 @@
+import logoIcon from './images/logo.png'
 import imgHero from './images/hero.png'
 import picProf1 from './images/prof1.png'
 import picProf2 from './images/prof2.png'
@@ -9,6 +10,7 @@ import iconV2 from './images/v2.svg'
 import iconV3 from './images/v3.svg'
 
 export {
+    logoIcon,
     imgHero,
     imgStudent1,
     imgStudent2,

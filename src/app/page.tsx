@@ -6,7 +6,7 @@ import { Footer, HeroSection, StudentsSection,  TeacherSection, ValuesSection } 
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="py-4">
       <HeroSection />
       <ValuesSection />
       <TeacherSection />
