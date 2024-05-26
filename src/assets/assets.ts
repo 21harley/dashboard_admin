@@ -8,8 +8,12 @@ import imgStudent2 from './images/student2.png'
 import iconV1 from './images/v1.svg'
 import iconV2 from './images/v2.svg'
 import iconV3 from './images/v3.svg'
+import imgLogin from './images/imgLogin.jpg'
+import imgPerfil from './images/perfilImg.jpeg'
 
 export {
+    imgPerfil,
+    imgLogin,
     logoIcon,
     imgHero,
     imgStudent1,

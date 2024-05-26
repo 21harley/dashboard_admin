@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { FaPencilAlt } from "react-icons/fa";
 import { logoIcon } from '@/src/assets/assets';
+import Link from 'next/link';
 
 const Navbar = () => {
   return (
@@ -37,9 +38,11 @@ const Navbar = () => {
             <a href="#" className="hover:text-secondary">Redes</a>
           </li>
         </ul>
-        <button className='btn m-4 text-white bg-secondary border-none p-3 hover:border hover:border-orange-900 hover:bg-white hover:text-secondary capitalize rounded-md'>
-          Entrar
-        </button>
+        <Link href="/login" legacyBehavior>
+            <a className="btn m-4 text-white bg-secondary border-none p-3 hover:border hover:border-orange-900 hover:bg-white hover:text-secondary capitalize rounded-md">
+                Entrar
+            </a>
+        </Link>
       </div>
     </div>
   );

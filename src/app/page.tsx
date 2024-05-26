@@ -1,17 +1,38 @@
+"use client"
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
+import { Landing } from "../components"; // Importa solo el componente Landing si Profile ya no se usará directamente
+import useUserStore from "../store/store";
 
-import { Footer, HeroSection, StudentsSection,  TeacherSection, ValuesSection } from "../components";
-
-
-
+// Simulación de una función de verificación de autenticación
+const isAuthenticated = () => {
+  // Implementa aquí tu lógica de autenticación
+  // Por ejemplo, podrías verificar un token en el local storage o una cookie
+  return true; // Cambia esto según tu lógica de autenticación
+};
 
 export default function Home() {
+  const router = useRouter();
+  const { isLoggedIn } = useUserStore();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (isAuthenticated()) {
+        router.push("/profile");
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [isLoggedIn, router]);
+
   return (
-    <main className="py-4">
-      <HeroSection />
-      <ValuesSection />
-      <TeacherSection />
-      <StudentsSection />
-      <Footer />
-    </main>
+    <>
+      {
+        !isLoggedIn && 
+        <main className="py-4">
+          <Landing />
+        </main>
+      }
+    </>
   );
 }
