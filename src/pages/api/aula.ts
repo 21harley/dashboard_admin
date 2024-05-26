@@ -29,17 +29,17 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { profesorId, estudianteId, actividadId, nombre } = req.body;
-  const nuevaAula = await createAula(profesorId, estudianteId, actividadId, nombre);
+  const { userId, representId, actividadId, nombre } = req.body;
+  const nuevaAula = await createAula(userId, representId, actividadId, nombre);
   res.status(201).json(nuevaAula);
 }
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const { profesorId, estudianteId, actividadId, nombre } = req.body;
+  const { userId, representId, actividadId, nombre } = req.body;
   const aulaActualizada = await updateAula(Number(id), {
-    profesorId,
-    estudianteId,
+    userId,
+    representId,
     actividadId,
     nombre,
   });
@@ -53,16 +53,16 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createAula(
-  profesorId: number,
-  estudianteId: number,
+  userId: number,
+  representId: number,
   actividadId: number,
   nombre: string
 ) {
   const aula = await prisma.aula.create({
     data: {
-      profesorId,
-      estudianteId,
-      actividadId,
+      userId,
+      representId,
+      actividad: { connect: { id: actividadId } }, // Conectar con la actividad existente mediante su ID
       nombre,
     },
   });
@@ -83,8 +83,8 @@ async function getAllAulas() {
 async function updateAula(
   id: number,
   data: {
-    profesorId?: number;
-    estudianteId?: number;
+    userId?: number;
+    representId?: number;
     actividadId?: number;
     nombre?: string;
   }

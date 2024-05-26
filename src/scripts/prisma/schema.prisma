@@ -20,8 +20,8 @@ model Rol {
 model Usuario {
   id            Int            @id @default(autoincrement())
   cedula        String         @unique
-  nombre        String
-  apellido      String
+  firstName     String         @map("firstName") // Renombrado para ajustarse a los nuevos datos
+  lastName      String         @map("lastName") // Renombrado para ajustarse a los nuevos datos
   telefono      String
   correo        String         @unique
   rolId         Int
@@ -29,14 +29,17 @@ model Usuario {
   profesor      Profesor?
   representante Representante?
   estudiante    Estudiante?
+  birthdate     DateTime       @map("birthdate") // Nuevo campo
+  gender        String?        // Asumiendo que esta información se puede inferir del nombre
+  address       String         // Nuevo campo
 }
 
 model Profesor {
   id            Int         @id @default(autoincrement())
   usuarioId     Int         @unique
   codigo        String      @unique
-  gradoId       Int
-  areaId        Int
+  grado         String      // Modificado para reflejar el nuevo modelo
+  area          String      // Modificado para reflejar el nuevo modelo
   usuario       Usuario     @relation(fields: [usuarioId], references: [id])
   aulas         Aula[]
 }
@@ -62,18 +65,17 @@ model Estudiante {
 }
 
 model Aula {
-  id           Int        @id @default(autoincrement())
-  profesorId   Int
-  estudianteId Int
-  actividadId  Int
-  nombre       String
-  profesor     Profesor   @relation(fields: [profesorId], references: [id])
-  estudiante   Estudiante @relation(fields: [estudianteId], references: [id])
-  actividad    Actividad  @relation(fields: [actividadId], references: [id])
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("id_user") // Cambiado para reflejar el nuevo modelo
+  representId Int      @map("id_represent") // Cambiado para reflejar el nuevo modelo
+  nombre      String
+  profesor    Profesor @relation(fields: [userId], references: [id])
+  estudiante  Estudiante @relation(fields: [userId], references: [id])
+  actividad   Actividad[]
 }
 
 model Actividad {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   fechaInicio DateTime
   fechaFinal  DateTime
   nota        Float

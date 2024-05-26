@@ -9,11 +9,14 @@ CREATE TABLE "Rol" (
 CREATE TABLE "Usuario" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "cedula" TEXT NOT NULL,
-    "nombre" TEXT NOT NULL,
-    "apellido" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
     "telefono" TEXT NOT NULL,
     "correo" TEXT NOT NULL,
     "rolId" INTEGER NOT NULL,
+    "birthdate" DATETIME NOT NULL,
+    "gender" TEXT,
+    "address" TEXT NOT NULL,
     CONSTRAINT "Usuario_rolId_fkey" FOREIGN KEY ("rolId") REFERENCES "Rol" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -22,8 +25,8 @@ CREATE TABLE "Profesor" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "usuarioId" INTEGER NOT NULL,
     "codigo" TEXT NOT NULL,
-    "gradoId" INTEGER NOT NULL,
-    "areaId" INTEGER NOT NULL,
+    "grado" TEXT NOT NULL,
+    "area" TEXT NOT NULL,
     CONSTRAINT "Profesor_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -50,13 +53,11 @@ CREATE TABLE "Estudiante" (
 -- CreateTable
 CREATE TABLE "Aula" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "profesorId" INTEGER NOT NULL,
-    "estudianteId" INTEGER NOT NULL,
-    "actividadId" INTEGER NOT NULL,
+    "id_user" INTEGER NOT NULL,
+    "id_represent" INTEGER NOT NULL,
     "nombre" TEXT NOT NULL,
-    CONSTRAINT "Aula_profesorId_fkey" FOREIGN KEY ("profesorId") REFERENCES "Profesor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Aula_estudianteId_fkey" FOREIGN KEY ("estudianteId") REFERENCES "Estudiante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Aula_actividadId_fkey" FOREIGN KEY ("actividadId") REFERENCES "Actividad" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Aula_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "Profesor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Aula_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "Estudiante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -67,6 +68,14 @@ CREATE TABLE "Actividad" (
     "nota" REAL NOT NULL,
     "comentario" TEXT,
     "entregado" BOOLEAN NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "_ActividadToAula" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL,
+    CONSTRAINT "_ActividadToAula_A_fkey" FOREIGN KEY ("A") REFERENCES "Actividad" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "_ActividadToAula_B_fkey" FOREIGN KEY ("B") REFERENCES "Aula" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateIndex
@@ -89,3 +98,9 @@ CREATE UNIQUE INDEX "Representante_usuarioId_key" ON "Representante"("usuarioId"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Estudiante_usuarioId_key" ON "Estudiante"("usuarioId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_ActividadToAula_AB_unique" ON "_ActividadToAula"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ActividadToAula_B_index" ON "_ActividadToAula"("B");

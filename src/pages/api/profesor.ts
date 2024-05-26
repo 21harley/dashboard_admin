@@ -29,19 +29,19 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { usuarioId, codigo, gradoId, areaId } = req.body;
-  const nuevoProfesor = await createProfesor(usuarioId, codigo, gradoId, areaId);
+  const { usuarioId, codigo, grado, area } = req.body;
+  const nuevoProfesor = await createProfesor(usuarioId, codigo, grado, area);
   res.status(201).json(nuevoProfesor);
 }
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const { usuarioId, codigo, gradoId, areaId } = req.body;
+  const { usuarioId, codigo, grado, area } = req.body;
   const profesorActualizado = await updateProfesor(Number(id), {
     usuarioId,
     codigo,
-    gradoId,
-    areaId,
+    grado,
+    area,
   });
   res.status(200).json(profesorActualizado);
 }
@@ -55,15 +55,15 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
 async function createProfesor(
   usuarioId: number,
   codigo: string,
-  gradoId: number,
-  areaId: number
+  grado: string,
+  area: string
 ) {
   const profesor = await prisma.profesor.create({
     data: {
       usuarioId,
       codigo,
-      gradoId,
-      areaId,
+      grado,
+      area,
     },
   });
   return profesor;
@@ -83,8 +83,8 @@ async function updateProfesor(
   data: {
     usuarioId?: number;
     codigo?: string;
-    gradoId?: number;
-    areaId?: number;
+    grado?: string;
+    area?: string;
   }
 ) {
   const profesor = await prisma.profesor.update({
