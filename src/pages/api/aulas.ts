@@ -53,15 +53,15 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createAula(
-  userId: number,
-  representId: number,
+  profesorId: number,
+  estudianteId: number,
   actividadId: number,
   nombre: string
 ) {
   const aula = await prisma.aula.create({
     data: {
-      userId,
-      representId,
+      profesorId,
+      estudianteId,
       actividad: { connect: { id: actividadId } }, // Conectar con la actividad existente mediante su ID
       nombre,
     },

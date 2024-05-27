@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Modelos actualizados
 model Rol {
   id          Int      @id @default(autoincrement())
   nombre      String   @unique
@@ -65,12 +66,12 @@ model Estudiante {
 }
 
 model Aula {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("id_user") // Cambiado para reflejar el nuevo modelo
-  representId Int      @map("id_represent") // Cambiado para reflejar el nuevo modelo
-  nombre      String
-  profesor    Profesor @relation(fields: [userId], references: [id])
-  estudiante  Estudiante @relation(fields: [userId], references: [id])
+  id            Int      @id @default(autoincrement())
+  profesorId    Int      // Cambiado para reflejar el nuevo modelo
+  estudianteId  Int     // Cambiado para reflejar el nuevo modelo
+  nombre        String
+  profesor    Profesor   @relation(fields: [profesorId], references: [id])
+  estudiante  Estudiante @relation(fields: [estudianteId], references: [id])
   actividad   Actividad[]
 }
 

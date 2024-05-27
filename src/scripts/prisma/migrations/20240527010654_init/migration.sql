@@ -53,11 +53,11 @@ CREATE TABLE "Estudiante" (
 -- CreateTable
 CREATE TABLE "Aula" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "id_user" INTEGER NOT NULL,
-    "id_represent" INTEGER NOT NULL,
+    "profesorId" INTEGER NOT NULL,
+    "estudianteId" INTEGER NOT NULL,
     "nombre" TEXT NOT NULL,
-    CONSTRAINT "Aula_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "Profesor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Aula_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "Estudiante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Aula_profesorId_fkey" FOREIGN KEY ("profesorId") REFERENCES "Profesor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Aula_estudianteId_fkey" FOREIGN KEY ("estudianteId") REFERENCES "Estudiante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
