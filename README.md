@@ -1,3 +1,15 @@
+## Comandos para la migración y la creación de datos
+
+Ejecutar los siguientes comandos desde la ruta `/src/scripts/prisma`:
+
+```sh
+# Migración de Prisma
+npx prisma migrate dev --name init 
+
+# Ejecución del script para crear datos
+npx ts-node create_data.ts
+
+
 | API            | Método | Ruta                      | Descripción                                       | Campos Requeridos                                                                |
 |----------------|--------|---------------------------|---------------------------------------------------|----------------------------------------------------------------------------------|
 | Usuarios       | GET    | `/api/usuarios`           | Obtiene todos los usuarios del sistema.           | -                                                                                |
