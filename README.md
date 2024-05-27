@@ -8,7 +8,7 @@ npx prisma migrate dev --name init
 
 # Ejecución del script para crear datos
 npx ts-node create_data.ts
-```sh
+```
 
 | API            | Método | Ruta                      | Descripción                                       | Campos Requeridos                                                                |
 |----------------|--------|---------------------------|---------------------------------------------------|----------------------------------------------------------------------------------|
