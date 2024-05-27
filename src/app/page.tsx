@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { Landing } from "../components"; // Importa solo el componente Landing si Profile ya no se usará directamente
 import useUserStore from "../store/store";
@@ -29,7 +29,7 @@ export default function Home() {
     <>
       {
         !isLoggedIn && 
-        <main className="py-4">
+        <main className="py-4 !scroll-smooth">
           <Landing />
         </main>
       }

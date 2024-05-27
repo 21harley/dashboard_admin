@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   
 
   return (
-    <html lang="en">
+    <html lang="en" className='!scroll-smooth'>
       <head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />

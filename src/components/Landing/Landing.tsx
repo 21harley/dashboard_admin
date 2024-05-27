@@ -1,20 +1,38 @@
-import React from 'react'
-import { HeroSection } from '../HeroSection'
-import { ValuesSection } from '../ValuesSection'
-import { TeacherSection } from '../TeacherSection'
-import { StudentsSection } from '../StudentsSection'
-import { Footer } from '../Footer'
+// app/page.js
 
-const Landing:React.FC = () => {
+import { Footer } from "../Footer";
+import { HeroSection } from "../HeroSection";
+import { HistorySection } from "../HistorySection";
+import { MisionVisionSection } from "../MisionVisionSection";
+import { Navbar } from "../Navbar";
+import { StudentsSection } from "../StudentsSection";
+import { TeacherSection } from "../TeacherSection";
+import { ValuesSection } from "../ValuesSection";
+
+
+export default function Home() {
   return (
-    <main className="py-4">
-      <HeroSection />
-      <ValuesSection />
-      <TeacherSection />
-      <StudentsSection />
-      <Footer />
+    <div className="!scroll-smooth flex flex-col items-center">
+      <Navbar />
+      <main className="py-4">
+        <HeroSection />
+        <section id="mision">
+          <MisionVisionSection />
+        </section>
+        <section id="valores">
+          <ValuesSection />
+        </section>
+        <section id="historia">
+          <HistorySection />
+        </section>
+        <section id="gente">
+          <TeacherSection />
+        </section>
+        <section id="estudiantes">
+          <StudentsSection />
+        </section>
       </main>
-  )
+      <Footer />
+    </div>
+  );
 }
-
-export default Landing

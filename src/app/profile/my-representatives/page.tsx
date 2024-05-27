@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
 import { RxAvatar } from 'react-icons/rx';
@@ -5,6 +6,7 @@ import { RxAvatar } from 'react-icons/rx';
 import students from '../../../data/test/students.json';
 import users from '../../../data/test/users.json';
 import useUserStore from '@/src/store/store';
+import { RelatedStudentDetails } from '@/src/types/types';
 
 const Page = () => {
   const { user } = useUserStore();

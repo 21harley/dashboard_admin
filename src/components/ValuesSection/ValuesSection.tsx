@@ -1,9 +1,9 @@
 import React from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { iconV1, iconV2, iconV3 } from "@/src/assets/assets";
 
 interface CardOurValuesProps {
-    iconSrc: string;
+    iconSrc: StaticImageData;
     title: string;
     paragraph: string;
   }
@@ -20,7 +20,7 @@ return (
 
 const ValuesSection = () => {
   return (
-    <div className="container mx-auto py-20">
+    <div  className="container mx-auto py-20">
       <p className="text-base lg:text-xl font-medium text-white text-center">
         ESTUDIA CON NOSOTROS
       </p>

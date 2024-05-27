@@ -25,4 +25,4 @@ interface Student {
   }
   
  
-  type RelatedStudentDetails = Student & User;
+export  type RelatedStudentDetails = Student & User;

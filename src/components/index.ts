@@ -9,4 +9,7 @@ export * from './Card'
 export * from './NavigationCard'
 export * from './Profile'
 export * from './Layout'
+export * from './HistorySection'
+export * from './MisionVisionSection'
+
 
