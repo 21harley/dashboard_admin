@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Comandos para la migración y la creación de datos
 
-## Getting Started
+Ejecutar los siguientes comandos desde la ruta `/src/scripts/prisma`:
 
-First, run the development server:
+```sh
+# Migración de Prisma
+npx prisma migrate dev --name init 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Ejecución del script para crear datos
+npx ts-node create_data.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| API            | Método | Ruta                      | Descripción                                       | Campos Requeridos                                                                |
+|----------------|--------|---------------------------|---------------------------------------------------|----------------------------------------------------------------------------------|
+| Usuarios       | GET    | `/api/usuarios`           | Obtiene todos los usuarios del sistema.           | -                                                                                |
+|                | POST   | `/api/usuarios`           | Crea un nuevo usuario en el sistema.              | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address` |
+|                | PUT    | `/api/usuarios/:id`       | Actualiza un usuario existente en el sistema.     | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address` |
+|                | DELETE | `/api/usuarios/:id`       | Elimina un usuario existente del sistema.         | -                                                                                |
+| Roles          | GET    | `/api/roles`              | Obtiene todos los roles del sistema.              | -                                                                                |
+|                | POST   | `/api/roles`              | Crea un nuevo rol en el sistema.                  | `nombre`, `descripcion`                                                          |
+|                | PUT    | `/api/roles/:id`          | Actualiza un rol existente en el sistema.         | `nombre`, `descripcion`                                                          |
+|                | DELETE | `/api/roles/:id`          | Elimina un rol existente del sistema.             | -                                                                                |
+| Representantes | GET    | `/api/representantes`     | Obtiene todos los representantes del sistema.     | -                                                                                |
+|                | POST   | `/api/representantes`     | Crea un nuevo representante en el sistema.        | `usuarioId`, `direccion`, `ocupacion`, `estadoCivil`, `edad`                     |
+|                | PUT    | `/api/representantes/:id` | Actualiza un representante existente en el sistema. | `usuarioId`, `direccion`, `ocupacion`, `estadoCivil`, `edad`                   |
+|                | DELETE | `/api/representantes/:id` | Elimina un representante existente del sistema.   | -                                                                                |
+| Profesores     | GET    | `/api/profesores`         | Obtiene todos los profesores del sistema.         | -                                                                                |
+|                | POST   | `/api/profesores`         | Crea un nuevo profesor en el sistema.             | `usuarioId`, `codigo`, `grado`, `area`                                           |
+|                | PUT    | `/api/profesores/:id`     | Actualiza un profesor existente en el sistema.    | `usuarioId`, `codigo`, `grado`, `area`                                           |
+|                | DELETE | `/api/profesores/:id`     | Elimina un profesor existente del sistema.        | -                                                                                |
+| Estudiantes    | GET    | `/api/estudiantes`        | Obtiene todos los estudiantes del sistema.        | -                                                                                |
+|                | POST   | `/api/estudiantes`        | Crea un nuevo estudiante en el sistema.           | `usuarioId`, `representanteId`                                                   |
+|                | PUT    | `/api/estudiantes/:id`    | Actualiza un estudiante existente en el sistema.  | `usuarioId`, `representanteId`                                                   |
+|                | DELETE | `/api/estudiantes/:id`    | Elimina un estudiante existente del sistema.      | -                                                                                |
+| Aulas          | GET    | `/api/aulas`              | Obtiene todas las aulas del sistema.              | -                                                                                |
+|                | POST   | `/api/aulas`              | Crea una nueva aula en el sistema.                | `profesorId`, `estudianteId`, `nombre`                                           |
+|                | PUT    | `/api/aulas/:id`          | Actualiza una aula existente en el sistema.       | `profesorId`, `estudianteId`, `nombre`                                           |
+|                | DELETE | `/api/aulas/:id`          | Elimina una aula existente del sistema.           | -                                                                                |
+| Actividades    | GET    | `/api/actividades`        | Obtiene todas las actividades del sistema.        | -                                                                                |
+|                | POST   | `/api/actividades`        | Crea una nueva actividad en el sistema.           | `fechaInicio`, `fechaFinal`, `nota`, `comentario`, `entregado`                   |
+|                | PUT    | `/api/actividades/:id`    | Actualiza una actividad existente en el sistema.  | `fechaInicio`, `fechaFinal`, `nota`, `comentario`, `entregado`                   |
+|                | DELETE | `/api/actividades/:id`    | Elimina una actividad existente del sistema.      | -                                                                                |
