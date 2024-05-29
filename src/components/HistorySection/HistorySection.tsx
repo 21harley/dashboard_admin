@@ -7,15 +7,14 @@ const HistorySection = () => {
     <div className="bg-[#fff5f1] px-4 lg:px-8 py-8 lg:py-12 rounded-md container mx-auto ">
       <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-5">
         <div className="flex flex-col gap-5 w-full lg:w-[50%] lg:mr-5">
-          <h2 className="text-lg lg:text-xl font-semibold mb-4">HISTORIA LOCAL</h2>
+          <h2 className="text-lg lg:text-xl font-semibold mb-4">Resumen de la Historia de La Escuela Nacional General Mariano Montilla y Díaz</h2>
+          
           <p className="text-sm lg:text-base mb-4">
-            En cuanto a la historia local, primeramente, se explicará en forma descendente empezando con la reseña histórica de nuestro Municipio, luego de nuestra comunidad y por último nuestra escuela.
+          La Escuela Nacional General Mariano Montilla y Díaz, arraigada en la aldea del mismo nombre junto al río Machirí al norte del Municipio San Cristóbal, tiene una historia marcada por la perseverancia y el compromiso. Desde sus modestos inicios en 1935, cuando las clases se impartían en una caballeriza, hasta su establecimiento definitivo en 1940 en una casa adquirida por el consejo municipal, ha sido un símbolo de educación en la región. Con una matrícula inicial de 40 estudiantes, quienes también participaban en el cultivo de un huerto para sufragar gastos, la escuela ha experimentado un notable crecimiento, aplicando medidas para garantizar la asistencia regular y convirtiéndose en un pilar fundamental para la comunidad.
           </p>
+          
           <p className="text-sm lg:text-base mb-4">
-            Así mismo, es necesario explicar un poco la fundación de la ciudad de San Cristóbal; fue fundada por el capitán español Juan Maldonado y Ordóñez de Villaquirán junto con 35 soldados el 31 de marzo de 1561 en las riberas del río Torbes. La recién fundada villa recibía constantes ataques de los pobladores indígenas de la región, hasta 1578, año en el cual el capitán Rodrigo de Paradas, quien para entonces era alcalde de la ciudad, detuvo dichos ataques luego de enfrentar a las poblaciones hostiles, recibiendo por ello el reconocimiento de Felipe II. San Cristóbal fue nombrada capital del mismo.
-          </p>
-          <p className="text-sm lg:text-base mb-4">
-            El 18 de mayo de 1875 la ciudad sufrió graves daños a causa del Terremoto de Cúcuta. Durante los gobiernos de Cipriano Castro y Juan Vicente Gómez
+          A lo largo de los años, La Escuela Nacional General Mariano Montilla y Díaz ha demostrado su compromiso con el desarrollo educativo y social de su entorno. Desde su mudanza a un trapiche en 1937-1938 hasta su ubicación actual, ha sido testigo de un crecimiento constante. Más allá de enseñar materias básicas, ha cultivado valores comunitarios y responsabilidad, aplicando sanciones a estudiantes ausentes para fomentar la asistencia regular. Su evolución refleja no solo el progreso educativo de la región, sino también el firme compromiso de la escuela con el bienestar de sus estudiantes y la comunidad en general.
           </p>
         </div>
         <div className="bg-secondary rounded-md shadow-md  relative overflow-hidden">
@@ -27,13 +26,14 @@ const HistorySection = () => {
           <Image src={fachada} alt="fachada" width={420} height={300} />
         </div>
         <div className="flex flex-col gap-5 w-full lg:w-[50%] lg:ml-5">
-          <h2 className="text-lg lg:text-xl font-semibold mb-4">Datos y origen del Municipio</h2>
           <p className="text-sm lg:text-base mb-4">
-            Su fundación data del 31 de marzo del año 1561 cuando el Capitán español Juan Maldonado acompañado de treinta y cinco hombres, tomó el Valle de Santiago y lo fundó con el nombre de San Cristóbal.
+          La Escuela Nacional General Mariano Montilla y Díaz, junto con otras 15 escuelas de aldeas y caseríos, formó parte del Núcleo Escolar Rural 107 establecido en 1962. A lo largo del tiempo, algunas de estas escuelas se independizaron y gestionaron su propio personal directivo. En el año 2000, la escuela adoptó el modelo bolivariano, ampliando su horario y lanzando el Programa Alimentario Escolar. Se realizaron mejoras en la infraestructura, incluyendo la construcción de aulas, laboratorios y baños, así como la implementación del Programa de Alimentación Escolar Bolivariano.
           </p>
+          
           <p className="text-sm lg:text-base mb-4">
-            El 6 de agosto de 1921 se crea el distrito San Cristóbal que cubría los municipios de Torbes, San Cristóbal, Cárdenas, Junín, Bolívar, Independencia, Libertad y Rafael Urdaneta. En 1930 se formó el distrito Cárdenas, tras la separación del Municipio San Cristóbal. En 1940 una nueva separación da forma al distrito Capacho y en 1941, al Distrito Junín. Cuando el gobierno venezolano creó la figura de los municipios en 1989, se creó el Municipio San Cristóbal, el cual desde 1996 está conformado por 5 Parroquias.
+          Además, con el respaldo del MPPE, se introdujeron innovaciones tecnológicas como el Plan Canaima en 2010, proporcionando mini laptops a los estudiantes de primer y segundo grado para fortalecer sus habilidades analíticas y creativas. En el año escolar 2010-2011, se creó el programa de Atención Educativa No Convencional, dirigido a embarazadas, familias y niños de 0 a 6 años que no asistían a instituciones educativas. En 2008, se diseñó el logotipo de la institución, un hito en su identidad visual, reflejando su notable evolución desde sus modestos inicios hasta adaptarse a nuevas tecnologías y programas educativos para mejorar la calidad de la educación y el bienestar de su comunidad estudiantil.
           </p>
+          
         </div>
       </div>
     </div>
@@ -41,3 +41,10 @@ const HistorySection = () => {
 };
 
 export default HistorySection;
+
+
+/*
+
+
+
+*/

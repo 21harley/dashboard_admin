@@ -1,4 +1,4 @@
-import { iconV1, imgStudents, logoIcon } from "@/src/assets/assets";
+import { imgStudents } from "@/src/assets/assets";
 import Image from "next/image";
 import React from "react";
 
@@ -24,16 +24,14 @@ const StudentsSection: React.FC = () => {
         <div className="flex flex-col gap-5 items-start ml-12 text-white">
           <p className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold">SOFIA PEREZ</p>
           <div className="flex items-center gap-2">
-            <div className="relative w-6 h-6">
-              <Image src={logoIcon} alt="icon" />
-            </div>
+            
             <div className="bg-slate-200 rounded-md p-4 ">
             <p className="text-blue-900 font-bold">
               6° Grado
             </p>
             </div>
           </div>
-          <p className="text-base  sm:text-lg md:text-2xl lg:text-5xl">            
+          <p className="text-base  sm:text-lg md:text-2xl ">            
               No hay forma de que hubiera logrado el mismo
               progreso aprendiendo sin la ayuda y el trabajo de los profes.
               La mejor parte es que ahora voy muy bien preparada para el siguiente paso.
