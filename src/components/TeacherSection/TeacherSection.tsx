@@ -6,7 +6,7 @@ const TeacherSection: React.FC = () => {
   const imageHeight = 260; // Ajusta esta altura según tus necesidades
 
   return (
-    <div className="container mx-auto py-8 text-black px-8 bg-white rounded-md">
+    <div className="container mx-auto mt-16 py-8 text-black px-8 bg-white rounded-md">
       <p className="text-base lg:text-xl font-medium uppercase">
         nuestra gente
       </p>
