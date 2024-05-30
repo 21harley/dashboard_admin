@@ -33,6 +33,7 @@ model Usuario {
   birthdate     DateTime       @map("birthdate") // Nuevo campo
   gender        String?        // Asumiendo que esta información se puede inferir del nombre
   address       String         // Nuevo campo
+  password      String
 }
 
 model Profesor {

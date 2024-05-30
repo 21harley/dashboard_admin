@@ -18,11 +18,11 @@ async function cargarDatosPrueba() {
 
     // Cargar usuarios
     const usuarios = [
-      { cedula: '1234567890', firstName: 'Juan', lastName: 'Pérez', telefono: '1234567890', correo: 'juan@example.com', rolId: 1, birthdate: new Date('1990-01-01T00:00:00Z'), gender: 'M', address: 'Calle 123, Ciudad' },
-      { cedula: '0987654321', firstName: 'María', lastName: 'González', telefono: '0987654321', correo: 'maria@example.com', rolId: 2, birthdate: new Date('1995-05-05T00:00:00Z'), gender: 'F', address: 'Avenida 456, Ciudad' },
-      { cedula: '1357924680', firstName: 'Carlos', lastName: 'López', telefono: '1357924680', correo: 'carlos@example.com', rolId: 3, birthdate: new Date('2000-10-10T00:00:00Z'), gender: 'M', address: 'Plaza 789, Ciudad' },
-      { cedula: '2468013579', firstName: 'Ana', lastName: 'Martínez', telefono: '2468013579', correo: 'ana@example.com', rolId: 4, birthdate: new Date('1998-07-15T00:00:00Z'), gender: 'F', address: 'Carrera 012, Ciudad' },
-      { cedula: '3692581470', firstName: 'Pedro', lastName: 'Sánchez', telefono: '3692581470', correo: 'pedro@example.com', rolId: 5, birthdate: new Date('1993-03-20T00:00:00Z'), gender: 'M', address: 'Calle 456, Ciudad' }
+      { cedula: '1234567890', firstName: 'Juan', lastName: 'Pérez', telefono: '1234567890', correo: 'juan@example.com', rolId: 1, birthdate: new Date('1990-01-01T00:00:00Z'), gender: 'M', address: 'Calle 123, Ciudad',password: '123456'},
+      { cedula: '0987654321', firstName: 'María', lastName: 'González', telefono: '0987654321', correo: 'maria@example.com', rolId: 2, birthdate: new Date('1995-05-05T00:00:00Z'), gender: 'F', address: 'Avenida 456, Ciudad',password: '123456' },
+      { cedula: '1357924680', firstName: 'Carlos', lastName: 'López', telefono: '1357924680', correo: 'carlos@example.com', rolId: 3, birthdate: new Date('2000-10-10T00:00:00Z'), gender: 'M', address: 'Plaza 789, Ciudad',password: '123456' },
+      { cedula: '2468013579', firstName: 'Ana', lastName: 'Martínez', telefono: '2468013579', correo: 'ana@example.com', rolId: 4, birthdate: new Date('1998-07-15T00:00:00Z'), gender: 'F', address: 'Carrera 012, Ciudad',password: '123456' },
+      { cedula: '3692581470', firstName: 'Pedro', lastName: 'Sánchez', telefono: '3692581470', correo: 'pedro@example.com', rolId: 5, birthdate: new Date('1993-03-20T00:00:00Z'), gender: 'M', address: 'Calle 456, Ciudad',password: '123456' }
     ];
     const createUsuario = await prisma.usuario.createMany({ data: usuarios });
 

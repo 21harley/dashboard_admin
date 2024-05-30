@@ -29,14 +29,14 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { cedula, firstName, lastName, telefono, correo, rolId, birthdate, gender, address } = req.body;
-  const nuevoUsuario = await createUsuario(cedula, firstName, lastName, telefono, correo, rolId, birthdate, gender, address);
+  const { cedula, firstName, lastName, telefono, correo, rolId, birthdate, gender, address,password } = req.body;
+  const nuevoUsuario = await createUsuario(cedula, firstName, lastName, telefono, correo, rolId, birthdate, gender, address, password);
   res.status(201).json(nuevoUsuario);
 }
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const { cedula, firstName, lastName, telefono, correo, rolId, birthdate, gender, address } = req.body;
+  const { cedula, firstName, lastName, telefono, correo, rolId, birthdate, gender, address,password } = req.body;
   const usuarioActualizado = await updateUsuario(Number(id), {
     cedula,
     firstName,
@@ -47,6 +47,7 @@ async function handlePut(req: NextApiRequest, res: NextApiResponse) {
     birthdate,
     gender,
     address,
+    password
   });
   res.status(200).json(usuarioActualizado);
 }
@@ -66,7 +67,8 @@ async function createUsuario(
   rolId: number,
   birthdate: Date,
   gender: string,
-  address: string
+  address: string,
+  password: string
 ) {
   const usuario = await prisma.usuario.create({
     data: {
@@ -79,6 +81,7 @@ async function createUsuario(
       birthdate,
       gender,
       address,
+      password,
     },
   });
   return usuario;
@@ -105,6 +108,7 @@ async function updateUsuario(
     birthdate?: Date;
     gender?: string;
     address?: string;
+    password?: string;
   }
 ) {
   const usuario = await prisma.usuario.update({

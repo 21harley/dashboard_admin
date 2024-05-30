@@ -17,6 +17,7 @@ CREATE TABLE "Usuario" (
     "birthdate" DATETIME NOT NULL,
     "gender" TEXT,
     "address" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     CONSTRAINT "Usuario_rolId_fkey" FOREIGN KEY ("rolId") REFERENCES "Rol" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
