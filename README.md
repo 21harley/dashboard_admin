@@ -13,8 +13,8 @@ npx ts-node create_data.ts
 | API            | Método | Ruta                      | Descripción                                       | Campos Requeridos                                                                |
 |----------------|--------|---------------------------|---------------------------------------------------|----------------------------------------------------------------------------------|
 | Usuarios       | GET    | `/api/usuarios`           | Obtiene todos los usuarios del sistema.           | -                                                                                |
-|                | POST   | `/api/usuarios`           | Crea un nuevo usuario en el sistema.              | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address` |
-|                | PUT    | `/api/usuarios/:id`       | Actualiza un usuario existente en el sistema.     | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address` |
+|                | POST   | `/api/usuarios`           | Crea un nuevo usuario en el sistema.              | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address`, `password` |
+|                | PUT    | `/api/usuarios/:id`       | Actualiza un usuario existente en el sistema.     | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address`, `password` |
 |                | DELETE | `/api/usuarios/:id`       | Elimina un usuario existente del sistema.         | -                                                                                |
 | Roles          | GET    | `/api/roles`              | Obtiene todos los roles del sistema.              | -                                                                                |
 |                | POST   | `/api/roles`              | Crea un nuevo rol en el sistema.                  | `nombre`, `descripcion`                                                          |
