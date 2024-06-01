@@ -23,14 +23,13 @@ export default async function authenticate(req: NextApiRequest, res: NextApiResp
         return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
+    console.log(process.env.JWT_SECRET)
     // Genera un token de acceso
     const token = jwt.sign(
         { cedula: usuario.cedula, rolId: usuario.rolId },
         process.env.JWT_SECRET || 's3cR3tK3y_wIthdfd!@lCh4r@ct3rdfdfsdf212793', // Provide a default value for JWT_SECRET
         { expiresIn: '1h' }
     );
-
-
 
     // Set the token in the Authorization header
     res.setHeader('Authorization', `Bearer ${token}`);

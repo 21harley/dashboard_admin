@@ -2,19 +2,22 @@
 import { create } from 'zustand';
 import { User } from '../types/types';
 
-
 interface UserState {
   user: User | null;
+  users: User[] | null;
   isLoggedIn: boolean;
   setUser: (user: User | null) => void;
+  setUsers: (users: User[] | null) => void; // Nuevo método para establecer la lista de usuarios
   updateUser: (id: number, updatedData: Partial<User>) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
 const useUserStore = create<UserState>((set) => ({
   user: null,
+  users: null,
   isLoggedIn: false,
   setUser: (user) => set({ user }),
+  setUsers: (users) => set({ users }), // Definir el método setUsers para actualizar la lista de usuarios
   updateUser: (id, updatedData) => set((state) => ({
     user: state.user && state.user.id === id ? { ...state.user, ...updatedData } : state.user,
   })),

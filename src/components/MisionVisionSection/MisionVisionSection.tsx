@@ -10,11 +10,11 @@ interface CardOurValuesProps {
 
 const CardOurValues: React.FC<CardOurValuesProps> = ({ iconSrc, title, paragraph }) => {
   return (
-    <div className="flex flex-col w-full max-w-lg gap-5 h-full text-white bg-secondary rounded-md p-4 shadow-md items-center justify-start">
-      {title && <h3 className="text-2xl lg:text-4xl font-extrabold text-center">{title}</h3>}
+    <div className="flex flex-col w-full max-w-lg gap-5 h-full text-white border-[2px] border-white bg-secondary rounded-md p-4 shadow-md items-center justify-start">
+      {title && <h3 className="text-2xl lg:text-4xl font-extrabold text-center bg-orange-500 w-full rounded-md">{title}</h3>}
       <Image src={iconSrc} alt={title} width={420} height={300} className="rounded-md" />
-      <div className="flex-grow flex justify-start border-[5px] border-white h-full rounded-md p-4">
-        {paragraph && <p className="text-white text-start">{paragraph}</p>}
+      <div className="flex-grow flex justify-start  bg-orange-500   h-full rounded-md p-4">
+        {paragraph && <p className="text-white font-medium text-start">{paragraph}</p>}
       </div>
     </div>
   );

@@ -1,19 +1,15 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
 }
-
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-// Modelos actualizados
 model Rol {
-  id          Int      @id @default(autoincrement())
-  nombre      String   @unique
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
   descripcion String?
   usuarios    Usuario[]
 }
@@ -21,59 +17,59 @@ model Rol {
 model Usuario {
   id            Int            @id @default(autoincrement())
   cedula        String         @unique
-  firstName     String         @map("firstName") // Renombrado para ajustarse a los nuevos datos
-  lastName      String         @map("lastName") // Renombrado para ajustarse a los nuevos datos
+  firstName     String         @map("firstName")
+  lastName      String         @map("lastName")
   telefono      String
   correo        String         @unique
   rolId         Int
-  rol           Rol            @relation(fields: [rolId], references: [id])
+  birthdate     DateTime       @map("birthdate")
+  gender        String?
+  address       String
+  password      String
+  estudiante    Estudiante?
   profesor      Profesor?
   representante Representante?
-  estudiante    Estudiante?
-  birthdate     DateTime       @map("birthdate") // Nuevo campo
-  gender        String?        // Asumiendo que esta información se puede inferir del nombre
-  address       String         // Nuevo campo
-  password      String
+  rol           Rol            @relation(fields: [rolId], references: [id])
 }
 
 model Profesor {
-  id            Int         @id @default(autoincrement())
-  usuarioId     Int         @unique
-  codigo        String      @unique
-  grado         String      // Modificado para reflejar el nuevo modelo
-  area          String      // Modificado para reflejar el nuevo modelo
-  usuario       Usuario     @relation(fields: [usuarioId], references: [id])
-  aulas         Aula[]
+  id        Int     @id @default(autoincrement())
+  usuarioId Int     @unique
+  codigo    String  @unique
+  grado     String
+  area      String
+  aulas     Aula[]
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 model Representante {
-  id           Int           @id @default(autoincrement())
-  usuarioId    Int           @unique
-  direccion    String
-  ocupacion    String
-  estadoCivil  String
-  edad         Int
-  usuario      Usuario       @relation(fields: [usuarioId], references: [id])
-  estudiantes  Estudiante[]
+  id          Int          @id @default(autoincrement())
+  usuarioId   Int          @unique
+  direccion   String
+  ocupacion   String
+  estadoCivil String
+  edad        Int
+  estudiantes Estudiante[]
+  usuario     Usuario      @relation(fields: [usuarioId], references: [id])
 }
 
 model Estudiante {
-  id              Int            @id @default(autoincrement())
-  usuarioId       Int            @unique
+  id              Int           @id @default(autoincrement())
+  usuarioId       Int           @unique
   representanteId Int
-  usuario         Usuario        @relation(fields: [usuarioId], references: [id])
-  representante   Representante  @relation(fields: [representanteId], references: [id])
   aulas           Aula[]
+  representante   Representante @relation(fields: [representanteId], references: [id])
+  usuario         Usuario       @relation(fields: [usuarioId], references: [id])
 }
 
 model Aula {
-  id            Int      @id @default(autoincrement())
-  profesorId    Int      // Cambiado para reflejar el nuevo modelo
-  estudianteId  Int     // Cambiado para reflejar el nuevo modelo
-  nombre        String
-  profesor    Profesor   @relation(fields: [profesorId], references: [id])
-  estudiante  Estudiante @relation(fields: [estudianteId], references: [id])
-  actividad   Actividad[]
+  id           Int         @id @default(autoincrement())
+  profesorId   Int
+  estudianteId Int
+  nombre       String
+  estudiante   Estudiante  @relation(fields: [estudianteId], references: [id])
+  profesor     Profesor    @relation(fields: [profesorId], references: [id])
+  actividad    Actividad[] @relation("ActividadToAula")
 }
 
 model Actividad {
@@ -83,5 +79,5 @@ model Actividad {
   nota        Float
   comentario  String?
   entregado   Boolean
-  aulas       Aula[]
+  aulas       Aula[]   @relation("ActividadToAula")
 }

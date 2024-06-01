@@ -4,10 +4,10 @@ Ejecutar los siguientes comandos desde la ruta `/src/scripts/prisma`:
 
 ```sh
 # Migración de Prisma
-npx prisma migrate dev --name init 
+npx prisma migrate dev --name init --schema ./src/scripts/prisma/schema.prisma
 
 # Ejecución del script para crear datos
-npx ts-node create_data.ts
+npx ts-node src/scripts/prisma/create_data.ts
 ```
 
 | API            | Método | Ruta                      | Descripción                                       | Campos Requeridos                                                                |

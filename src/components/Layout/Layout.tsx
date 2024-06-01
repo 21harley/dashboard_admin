@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { NavigationCard } from "../NavigationCard";
 import useUserStore from "@/src/store/store";
 // Asegúrate de importar la interfaz desde el archivo correcto
-import Image from 'next/image'; // Importa el componente Image de Next.js
+
 import { RxAvatar } from 'react-icons/rx'; // Importa el ícono de avatar (ajusta la importación según tu configuración)
 import { User } from "@/src/types/types";
 
@@ -39,26 +39,18 @@ export default function Layout({ children }: LayoutProps) {
           {user && (
             <div className="flex flex-col p-4">
               <div className="flex items-center mb-4 bg-secondary rounded-md text-white p-4">
-                {user.avatar ? (
-                  <Image 
-                    src={user.avatar} 
-                    alt={`${user.firstName} ${user.lastName}`} 
-                    width={64} 
-                    height={64} 
-                    className="rounded-full"
-                  />
-                ) : (
+                
                   <RxAvatar className="w-16 h-16 rounded-full" />
-                )}
+                
                 <div className="ml-4 font-semibold ">
-                  <p>CI: {user.ci}</p>
+                  <p>CI: {user.cedula}</p>
                   <p>Nombre: {user.firstName}</p>
                   <p>Apellido: {user.lastName}</p>
                 </div>
               </div>
-              <p>Teléfono: {user.phone}</p>
-              <p>Email: {user.email}</p>
-              <p>Rol: {getRole(user.id_rol)}</p>
+              <p>Teléfono: {user.telefono}</p>
+              <p>Email: {user.correo}</p>
+              <p>Rol: {getRole(user.rolId)}</p>
               <p>Fecha de nacimiento: {user.birthdate}</p>
               <p>Género: {user.gender}</p>
               <p>Dirección: {user.address}</p>
