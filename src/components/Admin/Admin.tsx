@@ -5,16 +5,23 @@ import { CardAdmin } from "./CardAdmin";
 import { Transactions } from "./Transactions";
 import { Rightbar } from "./Rightbar";
 import useUserStore from "@/src/store/store";
+import { usePathname } from "next/navigation";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const Dashboard = () => {
-  
+  const pathname = usePathname();
+  const title = pathname ? pathname.split("/").pop() : "Home";
+  console.log(title);
+
   const { setUsers } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      const response = (title !== 'profesor') ? await fetch("/api/usuarios") : await fetch("/api/usuarios/estudiante") ;
       try {
-        const response = await fetch("/api/usuarios");
+        
+        
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -34,7 +41,9 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-5 mb-5">
       <div className="flex-1 flex flex-col gap-5">
-      <div className="flex flex-col lg:flex-row gap-5 mt-5 items-center justify-center">
+      {
+        title !== 'profesor' && (
+          <div className="flex flex-col lg:flex-row gap-5 mt-5 items-center justify-center">
             <div className="">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-5 gap-5 bg-blue-400 rounded-md">
                 {cards.map((item) => (
@@ -46,7 +55,10 @@ const Dashboard = () => {
                 <Rightbar />
             </div>
         </div>
-        {!isLoading && <Transactions />}
+        )
+      }
+        {isLoading ? <LoadingSpinner /> : <Transactions />}
+        
       </div>
       
     </div>
@@ -54,3 +66,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+//{!isLoading && <Transactions />}

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="container mx-auto my-10">
       <div className="bg-[#f8fafe] grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5 lg:gap-10 px-6 sm:px-8 lg:px-12 py-8 lg:py-10 rounded-3xl items-center justify-center  border border-blue-900">
-        <div className="bg-blue-200 p-4 h-[340px] rounded-md flex flex-col items-center lg:items-start gap-5 border border-blue-900">
+        <div className="bg-blue-200 p-4 h-[340px] rounded-md flex flex-col items-center lg:items-start gap-5 ">
           <div id="locacion" className="rounded-md  shadow-md flex-grow w-full">
             <iframe
               width="100%"

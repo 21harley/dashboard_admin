@@ -21,7 +21,7 @@ const StudentsSection: React.FC = () => {
             <Image src={imgStudents} alt="student" />
           </div>
         </div>
-        <div className="flex flex-col gap-5 items-start ml-12 text-white">
+        <div className="flex flex-col gap-5 items-start ml-12 text-white  bg-orange-500 p-4 rounded-md">
           <p className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold">SOFIA PEREZ</p>
           <div className="flex items-center gap-2">
             

@@ -1,11 +1,21 @@
 import useUserStore from "@/src/store/store";
+import { usePathname } from "next/navigation";
 
 const Transactions = () => {
   const { users } = useUserStore();
+  const pathname = usePathname();
+  const title = pathname ? pathname.split("/").pop() : "Home";
 
   return (
     <div className="bg-bgSoft p-5 md:p-10 rounded-md bg-blue-300">
-      <h2 className="mb-6 text-white bg-secondary rounded-md font-extrabold uppercase p-2">Usuarios</h2>
+      
+      {
+        title !== 'profesor' ? (
+          <h2 className="mb-6 text-white bg-secondary rounded-md font-extrabold uppercase p-2">Usuarios</h2>
+        ):(
+          <h2 className="mb-6 text-white bg-blue-500 rounded-md font-extrabold uppercase p-2">Mis Alumnos</h2>
+        ) 
+      }
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>

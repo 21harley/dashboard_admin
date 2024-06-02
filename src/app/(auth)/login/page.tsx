@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { imgLogin } from '@/src/assets/assets';
 import useUserStore from '@/src/store/store';
+import { User } from '@/src/types/types';
 
 interface UserData {
   correo: string;
@@ -27,7 +28,7 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify({ correo, password })
       });
 
-      const data = await response.json();
+      const data:{ success: boolean, token: string, usuario: User, error: string}  = await response.json();
 
       if (response.ok) {
         toast.success('¡Inicio de sesión exitoso!');
@@ -35,9 +36,25 @@ const LoginPage: React.FC = () => {
         setUser(data.usuario); // Guarda el usuario en el store
         console.log(data.usuario);
         
-        setTimeout(() => {
-          router.push('/profile');
-        }, 1000);
+        console.log(data.usuario.rol.nombre);
+        
+          switch (data.usuario.rol.nombre) {
+            case "admin":
+              router.push('/admin');    
+            break;
+            case "profesor":
+              router.push('/profesor');    
+            break;
+            case "representante":
+              router.push('/profile');    
+            break;
+          
+            default:
+              router.push('/login');
+            break;
+          }
+          
+        
         
       } else {
         toast.error(data.error || 'Credenciales incorrectas. Por favor, intenta nuevamente.');

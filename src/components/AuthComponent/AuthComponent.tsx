@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, ReactNode } from 'react';
 import jwt from 'jsonwebtoken';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 interface AuthComponentProps {
   children: ReactNode;
@@ -39,7 +40,7 @@ const AuthComponent: React.FC<AuthComponentProps> = ({ children }) => {
 
   // Mostrar un mensaje de carga mientras se verifica el token.
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   // Si el token es válido, renderizar los children.

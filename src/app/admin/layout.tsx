@@ -1,4 +1,5 @@
 import { Sidebar } from "@/src/components/Admin/Sidebar";
+import { AuthComponent } from "@/src/components/AuthComponent";
 import { FooterAdmin } from "@/src/components/FooterAdmin";
 import { NavbarAdmin } from "@/src/components/NavbarAdmin";
 import { ReactNode } from "react";
@@ -9,6 +10,7 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
   return (
+    <AuthComponent>
     <div className="flex flex-col lg:flex-row">
       <div className="bg-primary p-5 h-full lg:h-screen lg:w-1/4">
         <Sidebar isAdmin={true} />
@@ -21,6 +23,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         <FooterAdmin />
       </div>
     </div>
+    </AuthComponent>
   );
 };
 

@@ -12,12 +12,15 @@ export default async function authenticate(req: NextApiRequest, res: NextApiResp
     // Busca al usuario por cédula o correo
     const usuario = await prisma.usuario.findFirst({
       where: {
-        OR: [
-          { password: password },
-          { correo: correo }
-        ]
-      }
+        correo: correo,
+        password: password
+      },
+      include: {
+        rol: true,
+      },
     });
+
+    
 
     if (!usuario || usuario.password !== password) { // Aquí deberías comparar con la contraseña cifrada
         return res.status(401).json({ error: 'Credenciales inválidas' });
