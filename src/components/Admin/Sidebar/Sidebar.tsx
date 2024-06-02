@@ -22,22 +22,22 @@ const menuItemsAdmin = [
     list: [
       {
         title: "Todos",
-        path: "/dashboard/todos",
+        path: "/admin",
         icon: <MdAttachMoney />,
       },
       {
         title: "Profesores",
-        path: "/dashboard/profesores",
+        path: "/admin/profesores",
         icon: <MdDashboard />,
       },
       {
         title: "Representantes",
-        path: "/dashboard/Representantes",
+        path: "/admin/representantes",
         icon: <MdSupervisedUserCircle />,
       },
       {
         title: "Estudiantes",
-        path: "/dashboard/estudiantes",
+        path: "/admin/estudiantes",
         icon: <MdShoppingBag />,
       },
     ],
@@ -85,12 +85,12 @@ const menuItemsProfesores = [
     list: [
       {
         title: "Todos",
-        path: "/dashboard/todos",
+        path: "/profesor",
         icon: <MdAttachMoney />,
       },
       {
         title: "Alumnos",
-        path: "/dashboard/profesores",
+        path: "/profesor/alumnos",
         icon: <MdDashboard />,
       },
       {
@@ -166,8 +166,8 @@ const Sidebar: React.FC<Props> = ({ isAdmin }) => {
           className="rounded-full"
         />
         <div className="flex flex-col mt-2 md:mt-0 md:ml-4">
-          <span className="font-bold">Directivos</span>
-          <span className="text-sm">Administrator</span>
+          <span className="font-bold">E.N. General Mariano Montilla y Díaz</span>
+          
         </div>
       </div>
       <ul className="list-none mt-4">

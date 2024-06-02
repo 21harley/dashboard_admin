@@ -9,11 +9,12 @@ import {
 
 interface Props {
   isAdmin: boolean;
+  title: string;
 }
 
-const Navbar: React.FC<Props> = ({ isAdmin }) => {
+const Navbar: React.FC<Props> = ({ isAdmin, title }) => {
   const pathname = usePathname();
-  const title = pathname ? pathname.split("/").pop() : "Home";
+  
 
   return (
     <div className={`${isAdmin ? "bg-secondary" : "bg-blue-600" } p-5 rounded-lg mb-5 text-white flex flex-col sm:flex-row items-center justify-between border-2 border-blue-200`}>

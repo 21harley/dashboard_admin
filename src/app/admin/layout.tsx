@@ -16,7 +16,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         <Sidebar isAdmin={true} />
       </div>
       <div className="flex-1 p-5 flex flex-col gap-3">
-        <NavbarAdmin isAdmin={true} />
+        <NavbarAdmin isAdmin={true} title="ADMIN" />
         <div className="flex-grow overflow-auto bg-white rounded-md border-[2px] border-gray-300 px-5">
           {children}
         </div>

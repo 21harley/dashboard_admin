@@ -1,7 +1,9 @@
+"use client"
 import { Sidebar } from "@/src/components/Admin/Sidebar";
 import { AuthComponent } from "@/src/components/AuthComponent";
 import { FooterAdmin } from "@/src/components/FooterAdmin";
 import { NavbarAdmin } from "@/src/components/NavbarAdmin";
+import useUserStore from "@/src/store/store";
 import { ReactNode } from "react";
 
 interface Props {
@@ -9,6 +11,8 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ children }) => {
+  const { user } = useUserStore(); // Obtén el usuario del store
+  
   return (
     <AuthComponent>
     <div className="flex flex-col lg:flex-row">
@@ -16,7 +20,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         <Sidebar isAdmin={false} />
       </div>
       <div className="flex-1 p-5 flex flex-col gap-3">
-        <NavbarAdmin isAdmin={false}/>
+      <NavbarAdmin isAdmin={false} title={"PROFESOR: "+ user?.firstName +" "+ user?.lastName } />
         <div className="flex-grow overflow-auto bg-white rounded-md border-[2px] border-gray-300 px-5">
           {children}
         </div>
@@ -29,46 +33,3 @@ const Layout: React.FC<Props> = ({ children }) => {
 
 export default Layout;
 
-
-/*
- .container {
-  display: flex;
-}
-
-.menu {
-  flex: 1;
-  background-color: var(--bgSoft);
-  padding: 20px;
-  min-height: 100vh;
-}
-
-.content {
-  flex: 4;
-  padding: 20px;
-}
-
-.wrapper {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.main {
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.cards {
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-}
-
-.side {
-  flex: 1;
-}
-
-.
-*/
