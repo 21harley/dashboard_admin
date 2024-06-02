@@ -11,11 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 'GET':
         return handleGet(req, res, role as string);
       case 'POST':
-        return handlePost(req, res, role as string);
+        return [405, { error: 'Método no permitido' }];
       case 'PUT':
-        return handlePut(req, res, role as string);
+        return [405, { error: 'Método no permitido' }];
       case 'DELETE':
-        return handleDelete(req, res, role as string);
+        return [405, { error: 'Método no permitido' }];
       default:
         return res.status(405).json({ error: 'Método no permitido' });
     }
@@ -28,21 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 async function handleGet(req: NextApiRequest, res: NextApiResponse, role: string) {
   const usuarios = await getAllUsuariosRole(role);
   res.status(200).json(usuarios);
-}
-
-async function handlePost(req: NextApiRequest, res: NextApiResponse, role: string) {
-  // Lógica para manejar POST
-  res.status(200).json({ message: `POST request for role: ${role}` });
-}
-
-async function handlePut(req: NextApiRequest, res: NextApiResponse, role: string) {
-  // Lógica para manejar PUT
-  res.status(200).json({ message: `PUT request for role: ${role}` });
-}
-
-async function handleDelete(req: NextApiRequest, res: NextApiResponse, role: string) {
-  // Lógica para manejar DELETE
-  res.status(200).json({ message: `DELETE request for role: ${role}` });
 }
 
 async function getAllUsuariosRole(role: string) {
