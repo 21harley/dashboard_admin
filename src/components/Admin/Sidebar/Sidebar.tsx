@@ -151,7 +151,7 @@ const Sidebar: React.FC<Props> = ({ isAdmin }) => {
   const menuItems = isAdmin ? menuItemsAdmin : menuItemsProfesores;
 
   return (
-    <div className="sticky top-10 bg-secondary p-6 rounded-md border-[2px] border-blue-200 text-white max-w-full md:max-w-xs">
+    <div className={`sticky top-10 ${isAdmin ? "bg-secondary" : "bg-blue-600" } p-6 rounded-md border-[2px] border-blue-200 text-white max-w-full md:max-w-xs`}>
       <div
         onClick={() => {
           router.push("/admin");
@@ -172,7 +172,7 @@ const Sidebar: React.FC<Props> = ({ isAdmin }) => {
       </div>
       <ul className="list-none mt-4">
         {menuItems.map((cat) => (
-          <li key={cat.title} className="mb-4 p-2 bg-orange-500 rounded-md">
+          <li key={cat.title} className={`mb-4 p-2 ${ isAdmin ? "bg-orange-500" : "bg-blue-500"}  rounded-md`} >
             <span className="font-bold text-gray-200 mb-2 block">{cat.title}</span>
             {cat.list.map((item) => (
               <MenuLink item={item} key={item.title} />

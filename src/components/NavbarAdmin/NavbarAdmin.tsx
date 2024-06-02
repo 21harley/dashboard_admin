@@ -16,7 +16,7 @@ const Navbar: React.FC<Props> = ({ isAdmin }) => {
   const title = pathname ? pathname.split("/").pop() : "Home";
 
   return (
-    <div className="p-5 rounded-lg bg-secondary mb-5 text-white flex flex-col sm:flex-row items-center justify-between border-2 border-blue-200">
+    <div className={`${isAdmin ? "bg-secondary" : "bg-blue-600" } p-5 rounded-lg mb-5 text-white flex flex-col sm:flex-row items-center justify-between border-2 border-blue-200`}>
       <div className="font-bold uppercase mb-3 sm:mb-0">{title}</div>
       <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 w-full sm:w-auto">
         <div className="flex items-center gap-3 bg-white text-gray-600 p-2 rounded-lg w-full sm:w-auto">
