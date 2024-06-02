@@ -13,6 +13,7 @@ npx ts-node src/scripts/prisma/create_data.ts
 | API            | Método | Ruta                      | Descripción                                       | Campos Requeridos                                                                |
 |----------------|--------|---------------------------|---------------------------------------------------|----------------------------------------------------------------------------------|
 | Usuarios       | GET    | `/api/usuarios`           | Obtiene todos los usuarios del sistema.           | -                                                                                |
+|                | GET    | `/api/usuarios/[role]`    | Obtiene usuarios según su rol.                    | -                                                                                |
 |                | POST   | `/api/usuarios`           | Crea un nuevo usuario en el sistema.              | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address`, `password` |
 |                | PUT    | `/api/usuarios/:id`       | Actualiza un usuario existente en el sistema.     | `cedula`, `firstName`, `lastName`, `telefono`, `correo`, `rolId`, `birthdate`, `gender`, `address`, `password` |
 |                | DELETE | `/api/usuarios/:id`       | Elimina un usuario existente del sistema.         | -                                                                                |
