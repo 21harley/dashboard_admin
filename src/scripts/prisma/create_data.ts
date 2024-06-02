@@ -43,6 +43,22 @@ for (let i = 0; i < 30; i++) {
     };
     usuarios.push(user);
 }
+
+for (let i = 0; i < 5; i++) {
+  let user = {
+      cedula: (1200200000 + i).toString(),
+      firstName: nombres[i % nombres.length],
+      lastName: apellidos[i % apellidos.length],
+      telefono: (2000000000 + i).toString(),
+      correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example1.com`,
+      rolId: 2,
+      birthdate: new Date(`199${Math.floor(i / 3)}-01-01T00:00:00Z`),
+      gender: i % 2 === 0 ? 'M' : 'F',
+      address: `Calle ${i + 1}, Ciudad`,
+      password: (100000 + i).toString()
+  };
+  usuarios.push(user);
+}
     await prisma.usuario.createMany({ data: usuarios });
 
     console.log('Datos de prueba cargados correctamente. Parte 1');
@@ -58,8 +74,16 @@ for (let i = 0; i < 30; i++) {
 async function cargarDatosPrueba1() {
   try {
     // Cargar profesores
-    const profesor = { usuarioId: 2, codigo: 'PROF001', grado: 'Licenciatura', area: 'Matemáticas' };
-    await prisma.profesor.create({ data: profesor });
+    //36 40
+    const profesor = [] 
+    profesor.push({ usuarioId: 2, codigo:  'PROF001', grado: 'Licenciatura', area: 'Matemáticas' });
+    profesor.push({ usuarioId: 36, codigo: 'PROF002', grado: 'Licenciatura', area: 'Deporte' });
+    profesor.push({ usuarioId: 37, codigo: 'PROF003', grado: 'Licenciatura', area: 'Quimica' });
+    profesor.push({ usuarioId: 38, codigo: 'PROF004', grado: 'Licenciatura', area: 'Psicologia' });
+    profesor.push({ usuarioId: 39, codigo: 'PROF005', grado: 'Licenciatura', area: 'General' });
+    profesor.push({ usuarioId: 40, codigo: 'PROF006', grado: 'Licenciatura', area: 'Historia' });
+
+    await prisma.profesor.createMany({ data: profesor });
 
     // Cargar representantes
     const representante = { usuarioId: 4, direccion: 'Av. Principal, Urbanización X', ocupacion: 'Ingeniero', estadoCivil: 'Casado', edad: 45 };
