@@ -24,8 +24,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const usuarios = await getAllUsuarios();
-  res.status(200).json(usuarios);
+  try{
+    const usuarios = await getAllUsuarios()
+      res.status(200).json(usuarios);
+  }catch(error){
+    console.error('Error al obtener los usuarios:', error);
+    return res.status(500).json({ error: 'Error interno del servidor' });
+  }
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {

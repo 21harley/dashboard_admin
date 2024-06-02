@@ -47,8 +47,8 @@ CREATE TABLE "Estudiante" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "usuarioId" INTEGER NOT NULL,
     "representanteId" INTEGER NOT NULL,
-    CONSTRAINT "Estudiante_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Estudiante_representanteId_fkey" FOREIGN KEY ("representanteId") REFERENCES "Representante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Estudiante_representanteId_fkey" FOREIGN KEY ("representanteId") REFERENCES "Representante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Estudiante_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -57,8 +57,8 @@ CREATE TABLE "Aula" (
     "profesorId" INTEGER NOT NULL,
     "estudianteId" INTEGER NOT NULL,
     "nombre" TEXT NOT NULL,
-    CONSTRAINT "Aula_profesorId_fkey" FOREIGN KEY ("profesorId") REFERENCES "Profesor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Aula_estudianteId_fkey" FOREIGN KEY ("estudianteId") REFERENCES "Estudiante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Aula_estudianteId_fkey" FOREIGN KEY ("estudianteId") REFERENCES "Estudiante" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Aula_profesorId_fkey" FOREIGN KEY ("profesorId") REFERENCES "Profesor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

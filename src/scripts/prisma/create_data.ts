@@ -8,11 +8,11 @@ async function cargarDatosPrueba() {
   try {
     // Cargar roles
     const roles = [
-      { nombre: 'Admin', descripcion: 'Administrador del sistema' },
-      { nombre: 'Profesor', descripcion: 'Profesor de la institución' },
-      { nombre: 'Estudiante', descripcion: 'Estudiante de la institución' },
-      { nombre: 'Representante', descripcion: 'Representante de un estudiante' },
-      { nombre: 'Usuario', descripcion: 'Usuario genérico del sistema' }
+      { nombre: 'admin', descripcion: 'Administrador del sistema' },
+      { nombre: 'profesor', descripcion: 'Profesor de la institución' },
+      { nombre: 'estudiante', descripcion: 'Estudiante de la institución' },
+      { nombre: 'representante', descripcion: 'Representante de un estudiante' },
+      { nombre: 'usuario', descripcion: 'Usuario genérico del sistema' }
     ];
     await prisma.rol.createMany({ data: roles });
 
@@ -22,8 +22,27 @@ async function cargarDatosPrueba() {
       { cedula: '0987654321', firstName: 'María', lastName: 'González', telefono: '0987654321', correo: 'maria@example.com', rolId: 2, birthdate: new Date('1995-05-05T00:00:00Z'), gender: 'F', address: 'Avenida 456, Ciudad', password: '123456' },
       { cedula: '1357924680', firstName: 'Carlos', lastName: 'López', telefono: '1357924680', correo: 'carlos@example.com', rolId: 3, birthdate: new Date('2000-10-10T00:00:00Z'), gender: 'M', address: 'Plaza 789, Ciudad', password: '123456' },
       { cedula: '2468013579', firstName: 'Ana', lastName: 'Martínez', telefono: '2468013579', correo: 'ana@example.com', rolId: 4, birthdate: new Date('1998-07-15T00:00:00Z'), gender: 'F', address: 'Carrera 012, Ciudad', password: '123456' },
-      { cedula: '3692581470', firstName: 'Pedro', lastName: 'Sánchez', telefono: '3692581470', correo: 'pedro@example.com', rolId: 5, birthdate: new Date('1993-03-20T00:00:00Z'), gender: 'M', address: 'Calle 456, Ciudad', password: '123456' }
+      { cedula: '3692581470', firstName: 'Pedro', lastName: 'Sánchez', telefono: '3692581470', correo: 'pedro@example.com', rolId: 5, birthdate: new Date('1993-03-20T00:00:00Z'), gender: 'M', address: 'Calle 456, Ciudad', password: '123456' },
     ];
+
+  const nombres = ['Juan', 'Pedro', 'Luis', 'Carlos', 'José', 'Miguel', 'Jorge', 'Mario', 'Sergio', 'Andrés', 'Francisco', 'David', 'Alejandro', 'Fernando', 'Ricardo', 'Gabriel', 'Rafael', 'Antonio', 'Manuel', 'Enrique', 'Alberto', 'Eduardo', 'Héctor', 'Iván', 'Javier', 'Raúl', 'Diego', 'Hugo', 'Oscar', 'Martín'];
+  const apellidos = ['Pérez', 'García', 'López', 'Martínez', 'González', 'Rodríguez', 'Sánchez', 'Ramírez', 'Torres', 'Flores', 'Vásquez', 'Castillo', 'Romero', 'Morales', 'Herrera', 'Ríos', 'Ortiz', 'Cruz', 'Gómez', 'Salazar', 'Mendoza', 'Jiménez', 'Silva', 'Castro', 'Mora', 'Chávez', 'Guerrero', 'Maldonado', 'Reyes', 'Vargas'];
+
+for (let i = 0; i < 30; i++) {
+    let user = {
+        cedula: (1000000000 + i).toString(),
+        firstName: nombres[i % nombres.length],
+        lastName: apellidos[i % apellidos.length],
+        telefono: (2000000000 + i).toString(),
+        correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example.com`,
+        rolId: 3,
+        birthdate: new Date(`199${Math.floor(i / 3)}-01-01T00:00:00Z`),
+        gender: i % 2 === 0 ? 'M' : 'F',
+        address: `Calle ${i + 1}, Ciudad`,
+        password: (100000 + i).toString()
+    };
+    usuarios.push(user);
+}
     await prisma.usuario.createMany({ data: usuarios });
 
     console.log('Datos de prueba cargados correctamente. Parte 1');
@@ -34,6 +53,7 @@ async function cargarDatosPrueba() {
     await prisma.$disconnect();
   }
 }
+
 
 async function cargarDatosPrueba1() {
   try {
