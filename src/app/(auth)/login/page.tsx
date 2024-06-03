@@ -1,4 +1,4 @@
-"use client";// cliente navegador cuando usa hook react, sino todo en el sevidor sin palabara sin hook servidor copila antes el documento y lo envia al servidor
+"use client"; // cliente navegador cuando usa hook react, sino todo en el sevidor sin palabara sin hook servidor copila antes el documento y lo envia al servidor
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify({ correo, password })
       });
 
-      const data:{ success: boolean, token: string, usuario: User, error: string}  = await response.json();
+      const data: { success: boolean, token: string, usuario: User, error: string } = await response.json();
 
       if (response.ok) {
         toast.success('¡Inicio de sesión exitoso!');
@@ -38,29 +38,32 @@ const LoginPage: React.FC = () => {
         
         console.log(data.usuario.rol.nombre);
         
-          switch (data.usuario.rol.nombre) {
-            case "admin":
-              router.push('/admin');    
+        switch (data.usuario.rol.nombre) {
+          case "admin":
+            router.push('/admin');
             break;
-            case "profesor":
-              router.push('/profesor');    
+          case "profesor":
+            router.push('/profesor');
             break;
-            case "representante":
-              router.push('/profile');    
+          case "representante":
+            router.push('/profile');
             break;
           
-            default:
-              router.push('/login');
+          default:
+            router.push('/login');
             break;
-          }
-          
-        
-        
+        }
       } else {
         toast.error(data.error || 'Credenciales incorrectas. Por favor, intenta nuevamente.');
       }
     } catch (error) {
       toast.error('Ocurrió un error. Por favor, intenta nuevamente.');
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -81,6 +84,7 @@ const LoginPage: React.FC = () => {
               id="correo"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className="py-4">
@@ -92,6 +96,7 @@ const LoginPage: React.FC = () => {
               className="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className="flex justify-between w-full py-4">
