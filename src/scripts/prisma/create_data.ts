@@ -28,7 +28,7 @@ async function cargarDatosPrueba() {
   const nombres = ['Juan', 'Pedro', 'Luis', 'Carlos', 'José', 'Miguel', 'Jorge', 'Mario', 'Sergio', 'Andrés', 'Francisco', 'David', 'Alejandro', 'Fernando', 'Ricardo', 'Gabriel', 'Rafael', 'Antonio', 'Manuel', 'Enrique', 'Alberto', 'Eduardo', 'Héctor', 'Iván', 'Javier', 'Raúl', 'Diego', 'Hugo', 'Oscar', 'Martín'];
   const apellidos = ['Pérez', 'García', 'López', 'Martínez', 'González', 'Rodríguez', 'Sánchez', 'Ramírez', 'Torres', 'Flores', 'Vásquez', 'Castillo', 'Romero', 'Morales', 'Herrera', 'Ríos', 'Ortiz', 'Cruz', 'Gómez', 'Salazar', 'Mendoza', 'Jiménez', 'Silva', 'Castro', 'Mora', 'Chávez', 'Guerrero', 'Maldonado', 'Reyes', 'Vargas'];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 35; i++) {
     let user = {
         cedula: (1000000000 + i).toString(),
         firstName: nombres[i % nombres.length],
@@ -36,7 +36,7 @@ for (let i = 0; i < 30; i++) {
         telefono: (2000000000 + i).toString(),
         correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example.com`,
         rolId: 3,
-        birthdate: new Date(`199${Math.floor(i / 3)}-01-01T00:00:00Z`),
+        birthdate: new Date(`1999-01-01T00:00:00Z`),
         gender: i % 2 === 0 ? 'M' : 'F',
         address: `Calle ${i + 1}, Ciudad`,
         password: (100000 + i).toString()
@@ -44,15 +44,16 @@ for (let i = 0; i < 30; i++) {
     usuarios.push(user);
 }
 
-for (let i = 0; i < 5; i++) {
+
+for (let i = 6; i < 41; i++) {
   let user = {
-      cedula: (1200200000 + i).toString(),
+      cedula: (1400200000 + i).toString(),
       firstName: nombres[i % nombres.length],
       lastName: apellidos[i % apellidos.length],
       telefono: (2000000000 + i).toString(),
-      correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example1.com`,
-      rolId: 3,//estudiante
-      birthdate: new Date(`199${Math.floor(i / 3)}-01-01T00:00:00Z`),
+      correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example4.com`,
+      rolId: 4,//representante
+      birthdate:new Date(`1998-07-15T00:00:00Z`),
       gender: i % 2 === 0 ? 'M' : 'F',
       address: `Calle ${i + 1}, Ciudad`,
       password: (100000 + i).toString()
@@ -85,9 +86,15 @@ async function cargarDatosPrueba1() {
 
     await prisma.profesor.createMany({ data: profesor });
 
-    // Cargar representantes
-    const representante = { usuarioId: 4, direccion: 'Av. Principal, Urbanización X', ocupacion: 'Ingeniero', estadoCivil: 'Casado', edad: 45 };
-    await prisma.representante.create({ data: representante });
+    // Cargar representantes 41 70
+    const representante=[]
+     representante.push({ usuarioId: 4, direccion: 'Av. Principal, Urbanización X', ocupacion: 'Ingeniero', estadoCivil: 'Casado', edad: 45 });
+
+     for(let i=41;i<=75;i++){
+      representante.push({ usuarioId: i, direccion: 'Av. Principal, Urbanización X', ocupacion: 'Ingenier@', estadoCivil: 'Casad@', edad:    Math.floor(Math.random() * (60 - 22)) + 22 });
+     }
+    
+    await prisma.representante.createMany({ data: representante });
 
     console.log('Datos de prueba cargados correctamente. Parte 2');
     await cargarDatosPrueba2();
@@ -98,9 +105,15 @@ async function cargarDatosPrueba1() {
 
 async function cargarDatosPrueba2() {
   try {
-    // Cargar estudiantes
-    const estudiante = { usuarioId: 3, representanteId: 1 };
-    await prisma.estudiante.create({ data: estudiante });
+    // Cargar estudiantes //6 35
+    const estudiante = [] 
+    estudiante.push( { usuarioId: 3, representanteId: 1 } );
+
+    for ( let i = 6, j = 2; i <= 41 && j<=36; i++,j++ ) {
+      estudiante.push( { usuarioId: i, representanteId: j } );
+    }
+    
+    await prisma.estudiante.createMany({ data: estudiante });
 
     // Cargar aulas
     const aula = { profesorId: 1, estudianteId: 1, nombre: 'Aula 101' };
