@@ -27,7 +27,7 @@ const Dashboard = () => {
         }
         const data = await response.json();
         console.log(data);
-        
+        console.log("holalalaalal");
         setUsers(data);
         setIsLoading(false);
       } catch (error) {

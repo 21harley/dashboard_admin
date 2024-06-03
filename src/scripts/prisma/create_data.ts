@@ -51,7 +51,7 @@ for (let i = 0; i < 5; i++) {
       lastName: apellidos[i % apellidos.length],
       telefono: (2000000000 + i).toString(),
       correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example1.com`,
-      rolId: 2,
+      rolId: 3,//estudiante
       birthdate: new Date(`199${Math.floor(i / 3)}-01-01T00:00:00Z`),
       gender: i % 2 === 0 ? 'M' : 'F',
       address: `Calle ${i + 1}, Ciudad`,

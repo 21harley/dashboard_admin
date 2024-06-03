@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Usuario } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -11,11 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 'GET':
         return handleGet(req, res, role as string);
       case 'POST':
-        return [405, { error: 'Método no permitido' }];
+        return res.status(405).json({ error: 'Método no permitido' });
       case 'PUT':
-        return [405, { error: 'Método no permitido' }];
+        return res.status(405).json({ error: 'Método no permitido' });
       case 'DELETE':
-        return [405, { error: 'Método no permitido' }];
+        return res.status(405).json({ error: 'Método no permitido' });
       default:
         return res.status(405).json({ error: 'Método no permitido' });
     }
@@ -30,16 +30,51 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse, role: string
   res.status(200).json(usuarios);
 }
 
-async function getAllUsuariosRole(role: string) {
-  const usuarios = await prisma.usuario.findMany({
-    include: {
-      rol: true,
-    },
-    where: {
-      rol: {
-        nombre: role // Asumiendo que `nombre` es el campo en el modelo `rol` que contiene el nombre del rol
-      }
-    },
-  });
+async function getAllUsuariosRole(role: string): Promise<Usuario[]> {
+  let usuarios: Usuario[];
+  switch (role) {
+    case 'profesor':
+      usuarios = await prisma.usuario.findMany({
+        include: {
+          rol: true,
+          profesor: true,
+        },
+        where: {
+          rol: {
+            nombre: role,
+          },
+        },
+      });
+      break;
+    case 'estudiante':
+      usuarios = await prisma.usuario.findMany({
+        include: {
+          rol: true,
+          estudiante: true,
+        },
+        where: {
+          rol: {
+            nombre: role,
+          },
+        },
+      });
+      break;
+    case 'representante':
+      usuarios = await prisma.usuario.findMany({
+        include: {
+          rol: true,
+          representante: true,
+        },
+        where: {
+          rol: {
+            nombre: role,
+          },
+        },
+      });
+      break;
+    default:
+      usuarios = [];
+      break;
+  }
   return usuarios;
 }

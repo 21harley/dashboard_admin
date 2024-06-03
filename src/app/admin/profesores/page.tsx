@@ -1,8 +1,31 @@
 "use client";
-import React, { useState, ChangeEvent } from 'react';
-import { User } from '@/src/types/types';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { UserProfesor } from '@/src/types/types';
 
 const ProfesoresPage: React.FC = () => {
+  const [profesores, setProfesores] = useState<UserProfesor[]>([]);
+  const [filteredProfesores, setFilteredProfesores] = useState<UserProfesor[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/usuarios/profesor");
+      try {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setProfesores(data);
+        setFilteredProfesores(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const test = {
     cedula: '',
@@ -21,10 +44,15 @@ const ProfesoresPage: React.FC = () => {
       id: 1,
       nombre: '',
     },
-  }
+    profesor: {
+      usuarioId: 1,
+      codigo: '',
+      grado: '',
+      area: '',
+    },
+  };
 
-  const [profesor, setProfesor] = useState<User>(test);
-
+  const [profesor, setProfesor] = useState<UserProfesor>(test);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +81,26 @@ const ProfesoresPage: React.FC = () => {
     }
   };
 
-  const handleEdit = (profesorData: User) => {
+  const handleEdit = (profesorData: UserProfesor) => {
     setProfesor(profesorData);
     setIsEditing(true);
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+    setFilteredProfesores(
+      profesores.filter(prof =>
+        prof.firstName.toLowerCase().includes(value) ||
+        prof.lastName.toLowerCase().includes(value) ||
+        prof.profesor.area.toLowerCase().includes(value)
+      )
+    );
+  };
+
+  const handleCancelEdit = () => {
+    setProfesor(test);
+    setIsEditing(false);
   };
 
   return (
@@ -117,17 +162,7 @@ const ProfesoresPage: React.FC = () => {
             className="w-full px-4 py-2 border border-blue-300 rounded"
           />
         </div>
-        <div>
-          <label className="block text-blue-600">Rol ID</label>
-          <input
-            type="number"
-            name="rolId"
-            placeholder="Rol ID"
-            value={profesor.rolId}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-blue-300 rounded"
-          />
-        </div>
+        
         <div>
           <label className="block text-blue-600">Fecha de Nacimiento</label>
           <input
@@ -172,6 +207,39 @@ const ProfesoresPage: React.FC = () => {
             className="w-full px-4 py-2 border border-blue-300 rounded"
           />
         </div>
+        <div>
+          <label className="block text-blue-600">Código</label>
+          <input
+            type="text"
+            name="codigo"
+            placeholder="Código"
+            value={profesor.profesor.codigo}
+            onChange={(e) => handleChange({ ...e, target: { ...e.target, name: `profesor.${e.target.name}` } })}
+            className="w-full px-4 py-2 border border-blue-300 rounded"
+          />
+        </div>
+        <div>
+          <label className="block text-blue-600">Grado</label>
+          <input
+            type="text"
+            name="grado"
+            placeholder="Grado"
+            value={profesor.profesor.grado}
+            onChange={(e) => handleChange({ ...e, target: { ...e.target, name: `profesor.${e.target.name}` } })}
+            className="w-full px-4 py-2 border border-blue-300 rounded"
+          />
+        </div>
+        <div>
+          <label className="block text-blue-600">Área</label>
+          <input
+            type="text"
+            name="area"
+            placeholder="Área"
+            value={profesor.profesor.area}
+            onChange={(e) => handleChange({ ...e, target: { ...e.target, name: `profesor.${e.target.name}` } })}
+            className="w-full px-4 py-2 border border-blue-300 rounded"
+          />
+        </div>
         <div className="col-span-1 sm:col-span-2 lg:col-span-3">
           {isEditing ? (
             <div className="flex space-x-4">
@@ -189,7 +257,15 @@ const ProfesoresPage: React.FC = () => {
               >
                 Eliminar
               </button>
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                className="w-full px-4 py-2 bg-gray-500 text-white font-bold rounded mt-2 hover:bg-gray-600"
+              >
+                Cancelar
+              </button>
             </div>
+            
           ) : (
             <button
               type="button"
@@ -203,33 +279,28 @@ const ProfesoresPage: React.FC = () => {
       </form>
       <div className="mt-6">
         <h3 className="text-xl text-blue-600 font-bold mb-2">Lista de Profesores</h3>
-        <ul className="space-y-2">
-          <li
-            onClick={() =>
-              handleEdit({
-                id: 2,
-                cedula: '0987654321',
-                firstName: 'María',
-                lastName: 'González',
-                telefono: '0987654321',
-                correo: 'maria@example.com',
-                rolId: 2,
-                birthdate: '1995-05-05',
-                gender: 'F',
-                address: 'Avenida 456, Ciudad',
-                password: '123456',
-                rol: {
-                  id: 2,
-                  nombre: 'profesor',
-                  descripcion: 'Profesor de la institución',
-                },
-              })
-            }
-            className="cursor-pointer text-blue-600 font-bold hover:underline"
-          >
-            María González - Matemáticas
-          </li>
-          {/* Agrega más profesores aquí */}
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Buscar profesor..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="w-full px-4 py-2 border border-blue-300 rounded"
+          />
+        </div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredProfesores.map((prof) => (
+            <li
+              onClick={() => handleEdit(prof)}
+              className="cursor-pointer bg-white shadow-md p-4 rounded-lg hover:bg-blue-50 transition duration-200"
+              key={prof.cedula}
+            >
+              <h4 className="text-lg font-bold text-gray-800">
+                {prof.firstName.toUpperCase()} {prof.lastName.toUpperCase()}
+              </h4>
+              <p className="text-gray-600">{prof.profesor.area}</p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
