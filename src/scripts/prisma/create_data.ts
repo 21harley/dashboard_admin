@@ -44,8 +44,24 @@ for (let i = 0; i < 35; i++) {
     usuarios.push(user);
 }
 
+for (let i = 36; i < 41; i++) {
+  let user = {
+      cedula: (1400200000 + i).toString(),
+      firstName: nombres[i % nombres.length],
+      lastName: apellidos[i % apellidos.length],
+      telefono: (2000000000 + i).toString(),
+      correo: `${nombres[i % nombres.length].toLowerCase()}${i + 1}@example4.com`,
+      rolId: 2,//representante
+      birthdate:new Date(`1998-07-15T00:00:00Z`),
+      gender: i % 2 === 0 ? 'M' : 'F',
+      address: `Calle ${i + 1}, Ciudad`,
+      password: (100000 + i).toString()
+  };
+  usuarios.push(user);
+}
 
-for (let i = 6; i < 41; i++) {
+
+for (let i = 41; i < 76; i++) {
   let user = {
       cedula: (1400200000 + i).toString(),
       firstName: nombres[i % nombres.length],
@@ -78,11 +94,11 @@ async function cargarDatosPrueba1() {
     //36 40
     const profesor = [] 
     profesor.push({ usuarioId: 2, codigo:  'PROF001', grado: 'Licenciatura', area: 'Matemáticas' });
-    profesor.push({ usuarioId: 36, codigo: 'PROF002', grado: 'Licenciatura', area: 'Deporte' });
-    profesor.push({ usuarioId: 37, codigo: 'PROF003', grado: 'Licenciatura', area: 'Quimica' });
-    profesor.push({ usuarioId: 38, codigo: 'PROF004', grado: 'Licenciatura', area: 'Psicologia' });
-    profesor.push({ usuarioId: 39, codigo: 'PROF005', grado: 'Licenciatura', area: 'General' });
-    profesor.push({ usuarioId: 40, codigo: 'PROF006', grado: 'Licenciatura', area: 'Historia' });
+    profesor.push({ usuarioId: 41, codigo: 'PROF002', grado: 'Licenciatura', area: 'Deporte' });
+    profesor.push({ usuarioId: 42, codigo: 'PROF003', grado: 'Licenciatura', area: 'Quimica' });
+    profesor.push({ usuarioId: 43, codigo: 'PROF004', grado: 'Licenciatura', area: 'Psicologia' });
+    profesor.push({ usuarioId: 44, codigo: 'PROF005', grado: 'Licenciatura', area: 'General' });
+    profesor.push({ usuarioId: 45, codigo: 'PROF006', grado: 'Licenciatura', area: 'Historia' });
 
     await prisma.profesor.createMany({ data: profesor });
 
@@ -90,7 +106,7 @@ async function cargarDatosPrueba1() {
     const representante=[]
      representante.push({ usuarioId: 4, direccion: 'Av. Principal, Urbanización X', ocupacion: 'Ingeniero', estadoCivil: 'Casado', edad: 45 });
 
-     for(let i=41;i<=75;i++){
+     for(let i=46;i<=80;i++){
       representante.push({ usuarioId: i, direccion: 'Av. Principal, Urbanización X', ocupacion: 'Ingenier@', estadoCivil: 'Casad@', edad:    Math.floor(Math.random() * (60 - 22)) + 22 });
      }
     
@@ -109,7 +125,7 @@ async function cargarDatosPrueba2() {
     const estudiante = [] 
     estudiante.push( { usuarioId: 3, representanteId: 1 } );
 
-    for ( let i = 6, j = 2; i <= 41 && j<=36; i++,j++ ) {
+    for ( let i = 6, j = 2; i <= 40 && j<=36; i++,j++ ) {
       estudiante.push( { usuarioId: i, representanteId: j } );
     }
     
