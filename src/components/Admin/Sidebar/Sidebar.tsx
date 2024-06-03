@@ -46,8 +46,8 @@ const menuItemsAdmin = [
     title: "Estadísticas",
     list: [
       {
-        title: "Datos Aula",
-        path: "/dashboard/revenue",
+        title: "Datos Alumnos",
+        path: "/admin/datos/alumno",
         icon: <MdWork />,
       },
       {
