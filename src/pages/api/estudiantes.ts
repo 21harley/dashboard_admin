@@ -59,6 +59,10 @@ async function createEstudiante(
       usuarioId,
       representanteId,
     },
+    include: {
+      usuario: true,
+      representante: true,
+    },
   });
   return estudiante;
 }
@@ -83,6 +87,10 @@ async function updateEstudiante(
   const estudiante = await prisma.estudiante.update({
     where: { id },
     data,
+    include: {
+      usuario: true,
+      representante: true,
+    },
   });
   return estudiante;
 }
@@ -90,6 +98,10 @@ async function updateEstudiante(
 async function deleteEstudiante(id: number) {
   const estudiante = await prisma.estudiante.delete({
     where: { id },
+    include: {
+      usuario: true,
+      representante: true,
+    },
   });
   return estudiante;
 }

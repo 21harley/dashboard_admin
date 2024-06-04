@@ -29,8 +29,8 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { fechaInicio, fechaFinal, nota, comentario, entregado } = req.body;
-  const nuevaActividad = await createActividad(fechaInicio, fechaFinal, nota, comentario, entregado);
+  const { fechaInicio, fechaFinal, nota, comentario, entregado, aulaId } = req.body;
+  const nuevaActividad = await createActividad(fechaInicio, fechaFinal, aulaId, nota, comentario, entregado);
   res.status(201).json(nuevaActividad);
 }
 
@@ -56,6 +56,7 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
 async function createActividad(
   fechaInicio: Date,
   fechaFinal: Date,
+  aulaId: number,
   nota: number,
   comentario: string,
   entregado: boolean
@@ -67,13 +68,18 @@ async function createActividad(
       nota,
       comentario,
       entregado,
+      aulaId,
     },
   });
   return actividad;
 }
 
 async function getAllActividades() {
-  const actividades = await prisma.actividad.findMany();
+  const actividades = await prisma.actividad.findMany({
+    include: {
+      aula: true,
+    },
+  });
   return actividades;
 }
 

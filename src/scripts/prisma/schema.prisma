@@ -40,6 +40,7 @@ model Profesor {
   area      String
   aulas     Aula[]
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  notas     Nota[]
 }
 
 model Representante {
@@ -57,20 +58,12 @@ model Estudiante {
   id              Int           @id @default(autoincrement())
   usuarioId       Int           @unique
   representanteId Int
-  aulas           Aula[]
+  aulas           Aula[]        @relation("EstudianteToAula")
   representante   Representante @relation(fields: [representanteId], references: [id])
   usuario         Usuario       @relation(fields: [usuarioId], references: [id])
+  notas           Nota[]
 }
 
-model Aula {
-  id           Int         @id @default(autoincrement())
-  profesorId   Int
-  estudianteId Int
-  nombre       String
-  estudiante   Estudiante  @relation(fields: [estudianteId], references: [id])
-  profesor     Profesor    @relation(fields: [profesorId], references: [id])
-  actividad    Actividad[] @relation("ActividadToAula")
-}
 
 model Actividad {
   id          Int      @id @default(autoincrement())
@@ -79,5 +72,27 @@ model Actividad {
   nota        Float
   comentario  String?
   entregado   Boolean
-  aulas       Aula[]   @relation("ActividadToAula")
+  aulaId      Int
+  aula        Aula     @relation(fields: [aulaId], references: [id], name: "AulaToActividad")
+  notas       Nota[]   @relation("ActividadToNota")
+}
+
+model Aula {
+  id           Int         @id @default(autoincrement())
+  profesorId   Int
+  nombre       String
+  estudiantes  Estudiante[] @relation("EstudianteToAula")
+  actividades  Actividad[]  @relation("AulaToActividad")
+  profesor     Profesor     @relation(fields: [profesorId], references: [id])
+}
+
+model Nota {
+  id             Int        @id @default(autoincrement())
+  actividadId    Int
+  profesorId     Int
+  estudianteId   Int
+  ponderacion    Float
+  actividad      Actividad  @relation(fields: [actividadId], references: [id], name: "ActividadToNota")
+  profesor       Profesor   @relation(fields: [profesorId], references: [id])
+  estudiante     Estudiante @relation(fields: [estudianteId], references: [id])
 }
