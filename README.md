@@ -22,6 +22,7 @@ npx ts-node src/scripts/prisma/create_data.ts
 |                | PUT    | `/api/roles/:id`          | Actualiza un rol existente en el sistema.         | `nombre`, `descripcion`                                                          |
 |                | DELETE | `/api/roles/:id`          | Elimina un rol existente del sistema.             | -                                                                                |
 | Representantes | GET    | `/api/representantes`     | Obtiene todos los representantes del sistema.     | -                                                                                |
+| Representantes | GET    | `/api/representantes?id_representante=[id_representante]`| Obtiene todos los estudiantes en relacion con el representante.     |  `representanteId`                                                                   |
 |                | POST   | `/api/representantes`     | Crea un nuevo representante en el sistema.        | `usuarioId`, `direccion`, `ocupacion`, `estadoCivil`, `edad`                     |
 |                | PUT    | `/api/representantes/:id` | Actualiza un representante existente en el sistema. | `usuarioId`, `direccion`, `ocupacion`, `estadoCivil`, `edad`                   |
 |                | DELETE | `/api/representantes/:id` | Elimina un representante existente del sistema.   | -                                                                                |

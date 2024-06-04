@@ -34,7 +34,7 @@ const LoginPage: React.FC = () => {
         toast.success('¡Inicio de sesión exitoso!');
         localStorage.setItem('token', data.token); // Guarda el token
         setUser(data.usuario); // Guarda el usuario en el store
-        console.log(data.usuario);
+        //console.log(data.usuario);
         
         console.log(data.usuario.rol.nombre);
         
@@ -102,9 +102,13 @@ const LoginPage: React.FC = () => {
           <div className="flex justify-between w-full py-4">
             <span className="font-bold text-md">¿Olvidaste tu contraseña?</span>
           </div>
-          <button onClick={handleLogin} className="w-full bg-secondary text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-secondary hover:border hover:border-gray-300">
+          <button
+            onClick={handleLogin}
+            className="w-full bg-secondary text-white p-2 rounded-lg mb-6 border hover:bg-white hover:text-secondary hover:border hover:border-gray-300 transition-colors duration-300"
+          >
             Iniciar sesión
           </button>
+
         </div>
         <div className="relative">
           <div className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover">

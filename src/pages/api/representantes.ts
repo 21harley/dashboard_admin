@@ -24,8 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const representantes = await getAllRepresentantes();
-  res.status(200).json(representantes);
+  const { id_representante } = req.query;
+
+  if (id_representante) {
+    return getEstudiantesByRepresentante(Number(id_representante), res);
+  } else {
+    const representantes = await getAllRepresentantes();
+    return res.status(200).json(representantes);
+  }
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
@@ -103,4 +109,30 @@ async function deleteRepresentante(id: number) {
     where: { id },
   });
   return representante;
+}
+
+async function getEstudiantesByRepresentante(id_representante: number, res: NextApiResponse) {
+  const representante = await prisma.representante.findUnique({
+    where: { id: id_representante },
+    include: {
+      estudiantes: {
+        include: {
+          usuario: true
+        }
+      }
+    }
+  });
+
+  if (!representante) {
+    return res.status(404).json({ error: 'Representante no encontrado' });
+  }
+
+  const estudiantesRelacionados = representante.estudiantes.map(estudiante => ({
+    id: estudiante.id,
+    usuarioId: estudiante.usuarioId,
+    representanteId: estudiante.representanteId,
+    usuario: estudiante.usuario // Datos del usuario relacionados
+  }));
+
+  return res.status(200).json(estudiantesRelacionados);
 }

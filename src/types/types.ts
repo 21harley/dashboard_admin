@@ -71,3 +71,14 @@ export interface User extends BaseUser {}
 
 // Tipo combinado de Student y User
 export type RelatedStudentDetails = Student & User;
+
+export interface Representante extends BaseUser {
+  // No se requiere definir explícitamente id, usuarioId, ya que están heredados de BaseUser
+  direccion: string;
+  ocupacion: string;
+  estadoCivil: string;
+  edad: number;
+}
+
+// Tipo combinado de Representante y UserRepresentante
+export type RelatedRepresentanteDetails = Representante & UserRepresentante;

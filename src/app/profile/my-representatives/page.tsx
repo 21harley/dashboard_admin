@@ -1,61 +1,68 @@
 "use client"
-import React from 'react';
-import Image from 'next/image';
-import { RxAvatar } from 'react-icons/rx';
-
-import students from '../../../data/test/students.json';
-import users from '../../../data/test/users.json';
+import React, { useEffect, useState } from 'react';
 import useUserStore from '@/src/store/store';
-import { RelatedStudentDetails } from '@/src/types/types';
+import { User } from '@/src/types/types';
+
+interface RepresentadoData {
+  id: number;
+  usuarioId: number;
+  representanteId: number;
+  usuario: User;
+}
 
 const Page = () => {
   const { user } = useUserStore();
+  const [representadoData, setRepresentadoData] = useState<RepresentadoData[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  // Filtrar los estudiantes relacionados con el representante actual
-  const relatedStudents = students.filter(student => student.id_represent === user?.id);
+  useEffect(() => {
+    const fetchRepresentadoData = async () => {
+      if (!user) return;
+      
+      try {
+        const response = await fetch(`/api/representantes?id_representante=${user.id}`);
+        if (!response.ok) {
+          throw new Error('Error al obtener datos del representado');
+        }
+        
+        const data: RepresentadoData[] = await response.json();
+        console.log("Fetched data:", data);  // Log para ver los datos obtenidos
+        setRepresentadoData(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Obtener los detalles del usuario para cada estudiante
-  const relatedStudentDetails: RelatedStudentDetails[] = relatedStudents.map(student => {
-    const userDetails = users.find(u => u.id === student.id_user);
-    return { ...student, ...userDetails } as RelatedStudentDetails;
-  });
+    fetchRepresentadoData();
+  }, [user]);
+
+  useEffect(() => {
+    if (representadoData) {
+      console.log("representadoData:", representadoData);  // Log para ver representadoData completo
+    }
+  }, [representadoData]);
+
+  if (loading) {
+    return <p>Cargando datos del representado...</p>;
+  }
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Estudiantes relacionados</h1>
-      {relatedStudentDetails.length > 0 ? (
-        <div className="w-full h-auto border border-green-900 mt-4 p-4">
-          <h2 className="text-lg font-semibold mb-4">Estudiantes:</h2>
-          {relatedStudentDetails.map(student => (
-            <div key={student.id} className="flex flex-col mb-4 p-2 border border-gray-300">
-              <div className="flex items-center mb-2">
-                {student.avatar ? (
-                  <Image 
-                    src={student.avatar} 
-                    alt={`${student.firstName} ${student.lastName}`} 
-                    width={32} 
-                    height={32} 
-                    className="rounded-full"
-                  />
-                ) : (
-                  <RxAvatar className="w-8 h-8 rounded-full" />
-                )}
-                <div className="ml-2">
-                  <p>CI: {student.ci}</p>
-                  <p>Nombre: {student.firstName}</p>
-                  <p>Apellido: {student.lastName}</p>
-                </div>
-              </div>
-              <p>Teléfono: {student.phone}</p>
-              <p>Email: {student.email}</p>
-              <p>Fecha de nacimiento: {student.birthdate}</p>
-              <p>Género: {student.gender}</p>
-              <p>Dirección: {student.address}</p>
+      {representadoData && representadoData.length > 0 ? (
+        <div>
+          <h2>Detalles de los Representados:</h2>
+          {representadoData.map((representado) => (
+            <div key={representado.id}>
+              <p>Nombre: {representado.usuario.firstName}</p>
+              <p>Apellido: {representado.usuario.lastName}</p>
+              {/* Agrega más campos según la estructura de los datos del representado */}
             </div>
           ))}
         </div>
       ) : (
-        <p>No hay estudiantes relacionados con este representante.</p>
+        <p>No se encontraron datos del representado.</p>
       )}
     </div>
   );
