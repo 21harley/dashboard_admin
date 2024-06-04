@@ -52,12 +52,12 @@ const menuItemsAdmin = [
       },
       {
         title: "Datos Profesores",
-        path: "/dashboard/reports",
+        path: "/admin/datos/profesor",
         icon: <MdAnalytics />,
       },
       {
         title: "Datos Representantes",
-        path: "/dashboard/teams",
+        path: "/admin/datos/representantes",
         icon: <MdPeople />,
       },
     ],
