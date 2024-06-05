@@ -1,8 +1,11 @@
 // stores/userStore.ts
 import { create } from 'zustand';
 import { User } from '../types/types';
+import { Profesor } from '../types/profesor.type';
 
 interface UserState {
+  profesor: Profesor | null;
+  setProfesor: (profesor: Profesor | null) => void;
   user: User | null;
   users: User[] | null;
   isLoggedIn: boolean;
@@ -13,6 +16,8 @@ interface UserState {
 }
 
 const useUserStore = create<UserState>((set) => ({
+  profesor: null,
+  setProfesor: (profesor) => set({ profesor }), // Acción para establecer el Profesor en el estado
   user: null,
   users: null,
   isLoggedIn: false,

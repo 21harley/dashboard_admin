@@ -24,8 +24,63 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const profesores = await getAllProfesores();
-  res.status(200).json(profesores);
+  const { id_usuario } = req.query;
+
+  try {
+    if (id_usuario) {
+      // Obtener el profesor asociado al id_usuario
+      const profesor = await getProfesorByUserId(Number(id_usuario));
+      
+      if (!profesor) {
+        return res.status(404).json({ error: 'Profesor no encontrado para el usuario dado' });
+      }
+      
+      return res.status(200).json(profesor);
+    } else {
+      // Obtener todos los profesores
+      const profesores = await getAllProfesores();
+      return res.status(200).json(profesores);
+    }
+  } catch (error) {
+    console.error('Error al obtener datos del profesor:', error);
+    return res.status(500).json({ error: 'Error en el servidor' });
+  }
+}
+
+async function getProfesorByUserId(id_usuario: number) {
+  // Buscar el profesor asociado al id_usuario
+  const profesor = await prisma.profesor.findUnique({
+    where: { usuarioId: id_usuario },
+    include: {
+      usuario: true,
+      aulas: {
+        include: {
+          estudiantes: {
+            include: {
+              usuario: true,
+              representante: {
+                include: {
+                  usuario: true,
+                },
+              },
+            },
+          },
+          actividades: true,
+        },
+      },
+    },
+  });
+  return profesor;
+}
+
+async function getAllProfesores() {
+  // Obtener todos los profesores
+  const profesores = await prisma.profesor.findMany({
+    include: {
+      usuario: true,
+    },
+  });
+  return profesores;
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
@@ -67,15 +122,6 @@ async function createProfesor(
     },
   });
   return profesor;
-}
-
-async function getAllProfesores() {
-  const profesores = await prisma.profesor.findMany({
-    include: {
-      usuario: true,
-    },
-  });
-  return profesores;
 }
 
 async function updateProfesor(

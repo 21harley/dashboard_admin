@@ -27,6 +27,7 @@ npx ts-node src/scripts/prisma/create_data.ts
 |                | PUT    | `/api/representantes/:id` | Actualiza un representante existente en el sistema. | `usuarioId`, `direccion`, `ocupacion`, `estadoCivil`, `edad`                   |
 |                | DELETE | `/api/representantes/:id` | Elimina un representante existente del sistema.   | -                                                                                |
 | Profesores     | GET    | `/api/profesores`         | Obtiene todos los profesores del sistema.         | -                                                                                |
+| Profesores     | GET    | `/api/profesores?id_profesor=[id_usuario]`         | Obtiene todos los datos realcioandos con el profesor del sistema.         | -                                                                                |
 |                | POST   | `/api/profesores`         | Crea un nuevo profesor en el sistema.             | `usuarioId`, `codigo`, `grado`, `area`                                           |
 |                | PUT    | `/api/profesores/:id`     | Actualiza un profesor existente en el sistema.    | `usuarioId`, `codigo`, `grado`, `area`                                           |
 |                | DELETE | `/api/profesores/:id`     | Elimina un profesor existente del sistema.        | -                                                                                |
