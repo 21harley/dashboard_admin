@@ -29,49 +29,121 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { fechaInicio, fechaFinal, nota, comentario, entregado, aulaId } = req.body;
-  const nuevaActividad = await createActividad(fechaInicio, fechaFinal, aulaId, nota, comentario, entregado);
-  res.status(201).json(nuevaActividad);
+  const { fechaInicio, fechaFinal, comentario, entregado, aulaId, name } = req.body;
+  try {
+    const nuevaActividad = await createActividad(fechaInicio, fechaFinal, aulaId, comentario, entregado, name);
+    res.status(201).json(nuevaActividad);
+  } catch (error) {
+    console.error('Error al crear la actividad:', error);
+    res.status(500).json({ error: 'Error al crear la actividad' });
+  }
 }
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const { fechaInicio, fechaFinal, nota, comentario, entregado } = req.body;
-  const actividadActualizada = await updateActividad(Number(id), {
-    fechaInicio,
-    fechaFinal,
-    nota,
-    comentario,
-    entregado,
-  });
-  res.status(200).json(actividadActualizada);
+  const { fechaInicio, fechaFinal, comentario, entregado, name } = req.body;
+  try {
+    const actividadActualizada = await updateActividad(Number(id), {
+      name,
+      fechaInicio,
+      fechaFinal,
+      comentario,
+      entregado,
+    });
+    res.status(200).json(actividadActualizada);
+  } catch (error) {
+    console.error('Error al actualizar la actividad:', error);
+    res.status(500).json({ error: 'Error al actualizar la actividad' });
+  }
 }
 
 async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const actividadEliminada = await deleteActividad(Number(id));
-  res.status(200).json(actividadEliminada);
+  try {
+    const actividadEliminada = await deleteActividad(Number(id));
+    res.status(200).json(actividadEliminada);
+  } catch (error) {
+    console.error('Error al eliminar la actividad:', error);
+    res.status(500).json({ error: 'Error al eliminar la actividad' });
+  }
 }
 
 async function createActividad(
+  name: string,
   fechaInicio: Date,
   fechaFinal: Date,
   aulaId: number,
-  nota: number,
   comentario: string,
-  entregado: boolean
+  entregado: boolean,
 ) {
-  const actividad = await prisma.actividad.create({
-    data: {
-      fechaInicio,
-      fechaFinal,
-      nota,
-      comentario,
-      entregado,
-      aulaId,
-    },
-  });
-  return actividad;
+  try {
+    // Crear la nueva actividad
+    const actividad = await prisma.actividad.create({
+      data: {
+        name,
+        fechaInicio,
+        fechaFinal,
+        comentario,
+        entregado,
+        aulaId,
+      },
+    });
+
+    console.log(`Actividad creada: ${actividad.id}`);
+
+    // Obtener los estudiantes del aula
+    const estudiantes = await prisma.estudiante.findMany({
+      where: {
+        aulas: {
+          some: {
+            id: aulaId,
+          },
+        },
+      },
+    });
+
+    if (estudiantes.length === 0) {
+      console.error('No se encontraron estudiantes en el aula.');
+    } else {
+      console.log(`Estudiantes encontrados: ${estudiantes.length}`);
+    }
+
+    // Obtener el profesor del aula
+    const aula = await prisma.aula.findUnique({
+      where: { id: aulaId },
+      include: { profesor: true },
+    });
+
+    if (!aula) {
+      throw new Error('El aula no existe');
+    }
+
+    if (!aula.profesor) {
+      throw new Error('El aula no tiene profesor asignado');
+    }
+
+    console.log(`Profesor encontrado: ${aula.profesor.id}`);
+
+    // Crear notas para cada estudiante
+    const notas = estudiantes.map((estudiante) => ({
+      actividadId: actividad.id,
+      estudianteId: estudiante.id,
+      profesorId: aula.profesor.id,
+      ponderacion: 0,  // Ajusta esto según sea necesario
+    }));
+
+    // Inserta las notas en la base de datos
+    const notasCreadas = await prisma.nota.createMany({
+      data: notas,
+    });
+
+    console.log(`Notas creadas: ${notasCreadas.count}`);
+
+    return actividad;
+  } catch (error) {
+    console.error('Error en createActividad:', error);
+    throw error;
+  }
 }
 
 async function getAllActividades() {
@@ -86,9 +158,9 @@ async function getAllActividades() {
 async function updateActividad(
   id: number,
   data: {
+    name?: string;
     fechaInicio?: Date;
     fechaFinal?: Date;
-    nota?: number;
     comentario?: string;
     entregado?: boolean;
   }

@@ -67,9 +67,9 @@ model Estudiante {
 
 model Actividad {
   id          Int      @id @default(autoincrement())
+  name        String
   fechaInicio DateTime
   fechaFinal  DateTime
-  nota        Float
   comentario  String?
   entregado   Boolean
   aulaId      Int

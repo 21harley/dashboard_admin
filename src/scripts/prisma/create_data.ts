@@ -201,13 +201,22 @@ await prisma.aula.update({
 
     // Cargar actividades
     const actividades = [
-      { fechaInicio: new Date('2024-06-01T08:00:00Z'), fechaFinal: new Date('2024-06-01T10:00:00Z'), aulaId: 1, nota: 85, comentario: 'Buena participación', entregado: true },
-      { fechaInicio: new Date('2024-06-02T08:00:00Z'), fechaFinal: new Date('2024-06-02T10:00:00Z'), aulaId: 1, nota: 90, comentario: 'Excelente trabajo', entregado: true },
-      { fechaInicio: new Date('2024-06-03T08:00:00Z'), fechaFinal: new Date('2024-06-03T10:00:00Z'), aulaId: 1, nota: 75, comentario: 'Necesita mejorar la presentación', entregado: true },
-      { fechaInicio: new Date('2024-06-04T08:00:00Z'), fechaFinal: new Date('2024-06-04T10:00:00Z'), aulaId: 1, nota: 95, comentario: 'Excelente desempeño', entregado: true },
-      { fechaInicio: new Date('2024-06-05T08:00:00Z'), fechaFinal: new Date('2024-06-05T10:00:00Z'), aulaId: 1, nota: 80, comentario: 'Buen trabajo en equipo', entregado: true }
+      { name:"Actividad 1",fechaInicio: new Date('2024-06-01T08:00:00Z'), fechaFinal: new Date('2024-06-01T10:00:00Z'), aulaId: 1,  comentario: 'Buena participación', entregado: true },
+      { name:"Actividad 2",fechaInicio: new Date('2024-06-02T08:00:00Z'), fechaFinal: new Date('2024-06-02T10:00:00Z'), aulaId: 1,  comentario: 'Excelente trabajo', entregado: true },
+      { name:"Actividad 3",fechaInicio: new Date('2024-06-03T08:00:00Z'), fechaFinal: new Date('2024-06-03T10:00:00Z'), aulaId: 1,  comentario: 'Necesita mejorar la presentación', entregado: true },
+      { name:"Actividad 4",fechaInicio: new Date('2024-06-04T08:00:00Z'), fechaFinal: new Date('2024-06-04T10:00:00Z'), aulaId: 1,  comentario: 'Excelente desempeño', entregado: true },
+      { name:"Actividad 5",fechaInicio: new Date('2024-06-05T08:00:00Z'), fechaFinal: new Date('2024-06-05T10:00:00Z'), aulaId: 1,  comentario: 'Buen trabajo en equipo', entregado: true }
     ];
-    await prisma.actividad.createMany({ data: actividades });
+    for (const actividad of actividades) {
+      await createActividad(
+        actividad.name,
+        actividad.fechaInicio,
+        actividad.fechaFinal,
+        actividad.aulaId,
+        actividad.comentario,
+        actividad.entregado
+      );
+    }
 
     console.log('Datos de prueba cargados correctamente. Parte 3');
   } catch (error) {
@@ -217,3 +226,80 @@ await prisma.aula.update({
 
 cargarDatosPrueba();
 
+async function createActividad(
+  name: string,
+  fechaInicio: Date,
+  fechaFinal: Date,
+  aulaId: number,
+  comentario: string,
+  entregado: boolean
+) {
+  try {
+    // Crear la nueva actividad
+    const actividad = await prisma.actividad.create({
+      data: {
+        name,
+        fechaInicio,
+        fechaFinal,
+        comentario,
+        entregado,
+        aulaId,
+      },
+    });
+
+    console.log(`Actividad creada: ${actividad.id}`);
+
+    // Obtener los estudiantes del aula
+    const estudiantes = await prisma.estudiante.findMany({
+      where: {
+        aulas: {
+          some: {
+            id: aulaId,
+          },
+        },
+      },
+    });
+
+    if (estudiantes.length === 0) {
+      console.error('No se encontraron estudiantes en el aula.');
+    } else {
+      console.log(`Estudiantes encontrados: ${estudiantes.length}`);
+    }
+
+    // Obtener el profesor del aula
+    const aula = await prisma.aula.findUnique({
+      where: { id: aulaId },
+      include: { profesor: true },
+    });
+
+    if (!aula) {
+      throw new Error('El aula no existe');
+    }
+
+    if (!aula.profesor) {
+      throw new Error('El aula no tiene profesor asignado');
+    }
+
+    console.log(`Profesor encontrado: ${aula.profesor.id}`);
+
+    // Crear notas para cada estudiante
+    const notas = estudiantes.map((estudiante: { id: number }) => ({
+      actividadId: actividad.id,
+      estudianteId: estudiante.id,
+      profesorId: aula.profesor.id,
+      ponderacion: 0,  // Ajusta esto según sea necesario
+    }));
+
+    // Inserta las notas en la base de datos
+    const notasCreadas = await prisma.nota.createMany({
+      data: notas,
+    });
+
+    console.log(`Notas creadas: ${notasCreadas.count}`);
+
+    return actividad;
+  } catch (error) {
+    console.error('Error en createActividad:', error);
+    throw error;
+  }
+}
