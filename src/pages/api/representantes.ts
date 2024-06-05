@@ -191,6 +191,7 @@ async function getDetailedInfoByRepresentante(id_representante: number, res: Nex
           actividades: aula.actividades.map(actividad => ({
             actividad: {
               id: actividad.id,
+              name: actividad.name,
               fechaInicio: actividad.fechaInicio,
               fechaFinal: actividad.fechaFinal,
               comentario: actividad.comentario,

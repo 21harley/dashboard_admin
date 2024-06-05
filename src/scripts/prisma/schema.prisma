@@ -67,6 +67,7 @@ model Estudiante {
 
 model Actividad {
   id          Int      @id @default(autoincrement())
+  name        String
   fechaInicio DateTime
   fechaFinal  DateTime
   comentario  String?

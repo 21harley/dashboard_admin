@@ -29,9 +29,9 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { fechaInicio, fechaFinal, comentario, entregado, aulaId } = req.body;
+  const { fechaInicio, fechaFinal, comentario, entregado, aulaId, name } = req.body;
   try {
-    const nuevaActividad = await createActividad(fechaInicio, fechaFinal, aulaId, comentario, entregado);
+    const nuevaActividad = await createActividad(fechaInicio, fechaFinal, aulaId, comentario, entregado, name);
     res.status(201).json(nuevaActividad);
   } catch (error) {
     console.error('Error al crear la actividad:', error);
@@ -41,9 +41,10 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const { fechaInicio, fechaFinal, comentario, entregado } = req.body;
+  const { fechaInicio, fechaFinal, comentario, entregado, name } = req.body;
   try {
     const actividadActualizada = await updateActividad(Number(id), {
+      name,
       fechaInicio,
       fechaFinal,
       comentario,
@@ -68,16 +69,18 @@ async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createActividad(
+  name: string,
   fechaInicio: Date,
   fechaFinal: Date,
   aulaId: number,
   comentario: string,
-  entregado: boolean
+  entregado: boolean,
 ) {
   try {
     // Crear la nueva actividad
     const actividad = await prisma.actividad.create({
       data: {
+        name,
         fechaInicio,
         fechaFinal,
         comentario,
@@ -155,6 +158,7 @@ async function getAllActividades() {
 async function updateActividad(
   id: number,
   data: {
+    name?: string;
     fechaInicio?: Date;
     fechaFinal?: Date;
     comentario?: string;

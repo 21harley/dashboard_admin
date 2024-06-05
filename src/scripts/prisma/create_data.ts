@@ -201,14 +201,15 @@ await prisma.aula.update({
 
     // Cargar actividades
     const actividades = [
-      { fechaInicio: new Date('2024-06-01T08:00:00Z'), fechaFinal: new Date('2024-06-01T10:00:00Z'), aulaId: 1,  comentario: 'Buena participación', entregado: true },
-      { fechaInicio: new Date('2024-06-02T08:00:00Z'), fechaFinal: new Date('2024-06-02T10:00:00Z'), aulaId: 1,  comentario: 'Excelente trabajo', entregado: true },
-      { fechaInicio: new Date('2024-06-03T08:00:00Z'), fechaFinal: new Date('2024-06-03T10:00:00Z'), aulaId: 1,  comentario: 'Necesita mejorar la presentación', entregado: true },
-      { fechaInicio: new Date('2024-06-04T08:00:00Z'), fechaFinal: new Date('2024-06-04T10:00:00Z'), aulaId: 1,  comentario: 'Excelente desempeño', entregado: true },
-      { fechaInicio: new Date('2024-06-05T08:00:00Z'), fechaFinal: new Date('2024-06-05T10:00:00Z'), aulaId: 1,  comentario: 'Buen trabajo en equipo', entregado: true }
+      { name:"Actividad 1",fechaInicio: new Date('2024-06-01T08:00:00Z'), fechaFinal: new Date('2024-06-01T10:00:00Z'), aulaId: 1,  comentario: 'Buena participación', entregado: true },
+      { name:"Actividad 2",fechaInicio: new Date('2024-06-02T08:00:00Z'), fechaFinal: new Date('2024-06-02T10:00:00Z'), aulaId: 1,  comentario: 'Excelente trabajo', entregado: true },
+      { name:"Actividad 3",fechaInicio: new Date('2024-06-03T08:00:00Z'), fechaFinal: new Date('2024-06-03T10:00:00Z'), aulaId: 1,  comentario: 'Necesita mejorar la presentación', entregado: true },
+      { name:"Actividad 4",fechaInicio: new Date('2024-06-04T08:00:00Z'), fechaFinal: new Date('2024-06-04T10:00:00Z'), aulaId: 1,  comentario: 'Excelente desempeño', entregado: true },
+      { name:"Actividad 5",fechaInicio: new Date('2024-06-05T08:00:00Z'), fechaFinal: new Date('2024-06-05T10:00:00Z'), aulaId: 1,  comentario: 'Buen trabajo en equipo', entregado: true }
     ];
     for (const actividad of actividades) {
       await createActividad(
+        actividad.name,
         actividad.fechaInicio,
         actividad.fechaFinal,
         actividad.aulaId,
@@ -226,6 +227,7 @@ await prisma.aula.update({
 cargarDatosPrueba();
 
 async function createActividad(
+  name: string,
   fechaInicio: Date,
   fechaFinal: Date,
   aulaId: number,
@@ -236,6 +238,7 @@ async function createActividad(
     // Crear la nueva actividad
     const actividad = await prisma.actividad.create({
       data: {
+        name,
         fechaInicio,
         fechaFinal,
         comentario,
