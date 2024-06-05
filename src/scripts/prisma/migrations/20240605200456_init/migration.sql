@@ -56,7 +56,6 @@ CREATE TABLE "Actividad" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "fechaInicio" DATETIME NOT NULL,
     "fechaFinal" DATETIME NOT NULL,
-    "nota" REAL NOT NULL,
     "comentario" TEXT,
     "entregado" BOOLEAN NOT NULL,
     "aulaId" INTEGER NOT NULL,

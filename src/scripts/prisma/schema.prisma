@@ -69,7 +69,6 @@ model Actividad {
   id          Int      @id @default(autoincrement())
   fechaInicio DateTime
   fechaFinal  DateTime
-  nota        Float
   comentario  String?
   entregado   Boolean
   aulaId      Int
