@@ -36,5 +36,11 @@ npx ts-node src/scripts/prisma/create_data.ts
 |                | POST   | `/api/estudiantes`                                 | Crea un nuevo estudiante en el sistema.               | `usuarioId`, `representanteId`                                                 |
 |                | PUT    | `/api/estudiantes/:id`                             | Actualiza un estudiante existente en el sistema.      | `usuarioId`, `representanteId`                                                 |
 |                | DELETE | `/api/estudiantes/:id`                             | Elimina un estudiante existente del sistema.          | -                                                                              |
-| **Aulas**      | GET    | `/api/aulas`                                       | Obtiene todas las aulas del sistema.                  | -                                                                              |
-|                | POST   | `/api/aulas`        
+| **Aula**       | GET    | `/api/aulas`                                       | Obtiene todas las aulas del sistema.                  | -                                                                              |
+|                | POST   | `/api/aulas`                                       | Crea una nueva aula en el sistema.                      | `profesorId`, `nombre`, `estudianteIds`                                                        |
+|                | PUT    | `/api/aulas/:id`                                   | Actualiza una aula existente en el sistema.             | `profesorId`, `nombre`, `estudianteIds`                                                        |
+|                | DELETE | `/api/aulas/:id`                                   | Elimina una aula existente del sistema.                 | -                                                                              |
+| **Actividades**| GET    | `/api/actividades`                                | Obtiene todas las actividades del sistema.           | -                                                                              |
+|                | POST   | `/api/actividades`                                | Crea una nueva actividad en el sistema.              | `name`, `fechaInicio`, `fechaFinal`, `comentario`, `entregado`, `aulaId`        |
+|                | PUT    | `/api/actividades/:id`                            | Actualiza una actividad existente en el sistema.    | `name`, `fechaInicio`, `fechaFinal`, `comentario`, `entregado`                   |
+|                | DELETE | `/api/actividades/:id`                            | Elimina una actividad existente del sistema.        | -                                                                              |
