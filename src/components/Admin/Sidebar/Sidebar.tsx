@@ -95,7 +95,7 @@ const menuItemsProfesores = [
       },
       {
         title: "Representantes",
-        path: "/dashboard/Representantes",
+        path: "/profesor/representantes",
         icon: <MdSupervisedUserCircle />,
       },
     ],
@@ -105,17 +105,17 @@ const menuItemsProfesores = [
     list: [
       {
         title: "Crear tarea",
-        path: "/dashboard/crear-tarea",
+        path: "/profesor/tarea/crear",
         icon: <MdWork />,
       },
       {
         title: "Mis tareas",
-        path: "/dashboard/mis-tareas",
+        path: "/profesor/tarea/ver",
         icon: <MdAnalytics />,
       },
       {
         title: "Notas",
-        path: "/dashboard/notas",
+        path: "/profesor/tarea/notas",
         icon: <MdPeople />,
       },
     ],

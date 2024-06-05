@@ -7,10 +7,7 @@ import { imgLogin } from '@/src/assets/assets';
 import useUserStore from '@/src/store/store';
 import { User } from '@/src/types/types';
 
-interface UserData {
-  correo: string;
-  password: string;
-}
+
 
 const LoginPage: React.FC = () => {
   const setUser = useUserStore(state => state.setUser);
