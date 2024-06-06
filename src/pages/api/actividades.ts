@@ -149,11 +149,16 @@ async function createActividad(
 async function getAllActividades() {
   const actividades = await prisma.actividad.findMany({
     include: {
-      aula: true,
+      aula: {
+        include: {
+          profesor: true,
+        },
+      },
     },
   });
   return actividades;
 }
+
 
 async function updateActividad(
   id: number,

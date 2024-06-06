@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { LoadingSpinner } from '@/src/components/LoadingSpinner';
 import useUserStore from '@/src/store/store';
 import React, { useState, ChangeEvent, useEffect } from 'react';
@@ -11,6 +11,18 @@ interface Activity {
   comentario: string;
   entregado: boolean;
   aulaId: number;
+  aula: {
+    id: number;
+    profesorId: number;
+    nombre: string;
+    profesor: {
+      id: number;
+      usuarioId: number;
+      codigo: string;
+      grado: string;
+      area: string;
+    };
+  };
 }
 
 const ActivityPage: React.FC = () => {
@@ -18,7 +30,7 @@ const ActivityPage: React.FC = () => {
   const [filteredActivities, setFilteredActivities] = useState<Activity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const {user} = useUserStore();
+  const { user } = useUserStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +41,6 @@ const ActivityPage: React.FC = () => {
         }
         const data = await response.json();
         setActivities(data);
-        setFilteredActivities(data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -39,6 +50,13 @@ const ActivityPage: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      const filtered = activities.filter(activity => activity.aula.profesor.usuarioId === user.id);
+      setFilteredActivities(filtered);
+    }
+  }, [activities, user]);
+
   const initialActivity: Activity = {
     id: 0,
     fechaInicio: '',
@@ -47,6 +65,18 @@ const ActivityPage: React.FC = () => {
     comentario: '',
     entregado: false,
     aulaId: 0,
+    aula: {
+      id: 0,
+      profesorId: 0,
+      nombre: '',
+      profesor: {
+        id: 0,
+        usuarioId: 0,
+        codigo: '',
+        grado: '',
+        area: '',
+      },
+    },
   };
 
   const [activity, setActivity] = useState<Activity>(initialActivity);
@@ -161,7 +191,7 @@ const ActivityPage: React.FC = () => {
     <div className="bg-blue-50 p-6 rounded-lg">
       <h2 className="text-2xl text-blue-600 font-bold mb-4">Actividades</h2>
       {isLoading ? (
-        <LoadingSpinner/>
+        <LoadingSpinner />
       ) : (
         <>
           <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -259,39 +289,40 @@ const ActivityPage: React.FC = () => {
                 </button>
               )}
             </div>
-          </form>
-          <div className="mt-6">
-            <h3 className="text-xl text-blue-600 font-bold mb-2">Lista de Actividades</h3>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Buscar actividad..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="w-full px-4 py-2 border border-blue-300 rounded"
-              />
+            </form>
+            <div className="mt-6">
+              <h3 className="text-xl text-blue-600 font-bold mb-2">Lista de Actividades</h3>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Buscar actividad..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className="w-full px-4 py-2 border border-blue-300 rounded"
+                />
+              </div>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredActivities.map((act) => (
+                  <li
+                    onClick={() => handleEdit(act)}
+                    className="cursor-pointer bg-white shadow-md p-4 rounded-lg hover:bg-blue-50 transition duration-200"
+                    key={act.id}
+                  >
+                    <h4 className="text-lg font-bold text-gray-800">
+                      {act.comentario}
+                    </h4>
+                    <p className="text-gray-600">Aula ID: {act.aulaId}</p>
+                    <p className="text-gray-600">Nota: {act.nota}</p>
+                    <p className="text-gray-600">Entregado: {act.entregado ? 'Sí' : 'No'}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredActivities.map((act) => (
-                <li
-                  onClick={() => handleEdit(act)}
-                  className="cursor-pointer bg-white shadow-md p-4 rounded-lg hover:bg-blue-50 transition duration-200"
-                  key={act.id}
-                >
-                  <h4 className="text-lg font-bold text-gray-800">
-                    {act.comentario}
-                  </h4>
-                  <p className="text-gray-600">Aula ID: {act.aulaId}</p>
-                  <p className="text-gray-600">Nota: {act.nota}</p>
-                  <p className="text-gray-600">Entregado: {act.entregado ? 'Sí' : 'No'}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
-
-export default ActivityPage;
+          </>
+        )}
+      </div>
+    );
+  };
+  
+  export default ActivityPage;
+  
