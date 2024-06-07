@@ -11,10 +11,13 @@ import {
   MdOutlineSettings,
   MdHelpCenter,
   MdLogout,
+  
 } from "react-icons/md";
+
 import { MenuLink } from "./MenuLink";
 import { useRouter } from "next/navigation";
 import { logoIconMd } from "@/src/assets/assets";
+import { FaSchool } from "react-icons/fa";
 
 const menuItemsAdmin = [
   {
@@ -39,6 +42,11 @@ const menuItemsAdmin = [
         title: "Estudiantes",
         path: "/admin/estudiantes",
         icon: <MdShoppingBag />,
+      },
+      {
+        title: "Aulas",
+        path: "/admin/aulas",
+        icon: <FaSchool />,
       },
     ],
   },
@@ -67,12 +75,12 @@ const menuItemsAdmin = [
     list: [
       {
         title: "Settings",
-        path: "/dashboard/settings",
+        path: "/admin/setting",
         icon: <MdOutlineSettings />,
       },
       {
         title: "Ayuda",
-        path: "/dashboard/ayuda",
+        path: "/admin/ayuda",
         icon: <MdHelpCenter />,
       },
     ],
@@ -113,11 +121,7 @@ const menuItemsProfesores = [
         path: "/profesor/tarea/ver",
         icon: <MdAnalytics />,
       },
-      {
-        title: "Notas",
-        path: "/profesor/tarea/notas",
-        icon: <MdPeople />,
-      },
+      
     ],
   },
   {
@@ -125,12 +129,12 @@ const menuItemsProfesores = [
     list: [
       {
         title: "Settings",
-        path: "/dashboard/settings",
+        path: "/profesor/setting",
         icon: <MdOutlineSettings />,
       },
       {
         title: "Ayuda",
-        path: "/dashboard/ayuda",
+        path: "/profesor/ayuda",
         icon: <MdHelpCenter />,
       },
     ],
