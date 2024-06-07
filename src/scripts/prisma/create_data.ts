@@ -33,7 +33,7 @@ async function cargarDatosPrueba() {
             birthdate: new Date(`1999-01-01T00:00:00Z`),
             gender: i % 2 === 0 ? 'M' : 'F',
             address: `Calle ${i + 1}, Ciudad`,
-            password: (100000 + i).toString()
+            password:"123456"
           };
           usuarios.push(user);
         }
@@ -50,7 +50,7 @@ async function cargarDatosPrueba() {
             birthdate: new Date(`1999-01-01T00:00:00Z`),
             gender: i % 2 === 0 ? 'M' : 'F',
             address: `Calle ${i + 1}, Ciudad`,
-            password: (100000 + i).toString()
+            password: "123456"
           };
           usuarios.push(user);
         }     
@@ -66,7 +66,7 @@ async function cargarDatosPrueba() {
             birthdate: new Date(`1999-01-01T00:00:00Z`),
             gender: i % 2 === 0 ? 'M' : 'F',
             address: `Calle ${i + 1}, Ciudad`,
-            password: (100000 + i).toString()
+            password:"123456"
           };
           usuarios.push(user);
         }   
@@ -83,7 +83,7 @@ async function cargarDatosPrueba() {
         birthdate: new Date(`1999-01-01T00:00:00Z`),
         gender: i % 2 === 0 ? 'M' : 'F',
         address: `Calle ${i + 1}, Ciudad`,
-        password: (100000 + i).toString()
+        password: "123456"
       };
       usuarios.push(user);
     }
@@ -100,7 +100,7 @@ async function cargarDatosPrueba() {
         birthdate: new Date(`1998-07-15T00:00:00Z`),
         gender: i % 2 === 0 ? 'M' : 'F',
         address: `Calle ${i + 1}, Ciudad`,
-        password: (100000 + i).toString()
+        password: "123456"
       };
       usuarios.push(user);
     }

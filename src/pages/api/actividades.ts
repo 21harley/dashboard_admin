@@ -24,8 +24,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const actividades = await getAllActividades();
-  res.status(200).json(actividades);
+  const { id } = req.query;
+  if (id) {
+    return getActividadById(Number(id), res);
+  } else {
+    const actividades = await getAllActividades();
+    return res.status(200).json(actividades);
+  }
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
@@ -77,7 +82,6 @@ async function createActividad(
   entregado: boolean,
 ) {
   try {
-    // Crear la nueva actividad
     const actividad = await prisma.actividad.create({
       data: {
         name,
@@ -91,7 +95,6 @@ async function createActividad(
 
     console.log(`Actividad creada: ${actividad.id}`);
 
-    // Obtener los estudiantes del aula
     const estudiantes = await prisma.estudiante.findMany({
       where: {
         aulas: {
@@ -108,7 +111,6 @@ async function createActividad(
       console.log(`Estudiantes encontrados: ${estudiantes.length}`);
     }
 
-    // Obtener el profesor del aula
     const aula = await prisma.aula.findUnique({
       where: { id: aulaId },
       include: { profesor: true },
@@ -124,15 +126,13 @@ async function createActividad(
 
     console.log(`Profesor encontrado: ${aula.profesor.id}`);
 
-    // Crear notas para cada estudiante
     const notas = estudiantes.map((estudiante) => ({
       actividadId: actividad.id,
       estudianteId: estudiante.id,
       profesorId: aula.profesor.id,
-      ponderacion: 0,  // Ajusta esto según sea necesario
+      ponderacion: 0,
     }));
 
-    // Inserta las notas en la base de datos
     const notasCreadas = await prisma.nota.createMany({
       data: notas,
     });
@@ -159,6 +159,38 @@ async function getAllActividades() {
   return actividades;
 }
 
+async function getActividadById(id: number, res: NextApiResponse) {
+  try {
+    const actividad = await prisma.actividad.findUnique({
+      where: { id },
+      include: {
+        notas: {
+          include: {
+            estudiante: {
+              include: {
+                usuario: true,
+              },
+            },
+          },
+        },
+        aula: {
+          include: {
+            profesor: true,
+          },
+        },
+      },
+    });
+
+    if (!actividad) {
+      return res.status(404).json({ error: 'Actividad no encontrada' });
+    }
+
+    return res.status(200).json(actividad);
+  } catch (error) {
+    console.error('Error al obtener la actividad:', error);
+    return res.status(500).json({ error: 'Error al obtener la actividad' });
+  }
+}
 
 async function updateActividad(
   id: number,
