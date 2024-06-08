@@ -24,8 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const notas = await getAllNotas();
-  res.status(200).json(notas);
+  const { actividadId } = req.query;
+  if (actividadId) {
+    const notas = await getNotasByActividadId(Number(actividadId));
+    return res.status(200).json(notas);
+  } else {
+    const notas = await getAllNotas();
+    return res.status(200).json(notas);
+  }
 }
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
@@ -35,8 +41,7 @@ async function handlePost(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.body;
-  const { ponderacion } = req.body;
+  const { id, ponderacion } = req.body;
   const notaActualizada = await updateNota(id, ponderacion);
   res.status(200).json(notaActualizada);
 }
@@ -65,6 +70,21 @@ async function getAllNotas() {
       actividad: true,
       profesor: true,
       estudiante: true,
+    },
+  });
+  return notas;
+}
+
+async function getNotasByActividadId(actividadId: number) {
+  const notas = await prisma.nota.findMany({
+    where: { actividadId },
+    include: {
+      actividad: true,
+      estudiante: {
+        include:{
+          usuario:true,
+        }
+      },
     },
   });
   return notas;

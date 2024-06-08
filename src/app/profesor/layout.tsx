@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 
 import useUserStore from "@/src/store/store";
-import { Profesor } from "@/src/types/profesor.type";
+
 import { AuthComponent } from "@/src/components/AuthComponent";
 import { LoadingSpinner } from "@/src/components/LoadingSpinner";
 import { Sidebar } from "@/src/components/Admin/Sidebar";
 import { NavbarAdmin } from "@/src/components/NavbarAdmin";
 import { FooterAdmin } from "@/src/components/FooterAdmin";
 import { useRouter } from "next/navigation";
+import { Profesor } from "@/src/types/profesor.type";
 
 interface Props {
   children: React.ReactNode;
