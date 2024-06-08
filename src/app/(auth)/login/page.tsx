@@ -16,6 +16,7 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState<string>('');
 
   const handleLogin = async () => {
+    /*
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -56,6 +57,7 @@ const LoginPage: React.FC = () => {
     } catch (error) {
       toast.error('Ocurrió un error. Por favor, intenta nuevamente.');
     }
+      */
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
