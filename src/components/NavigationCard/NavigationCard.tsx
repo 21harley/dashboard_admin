@@ -1,8 +1,6 @@
 "use client"
 import Link from "next/link";
 import { Card } from "../Card";
-import Image from "next/image";
-import { logoIcon } from "@/src/assets/assets";
 import { useRouter } from "next/navigation";
 
 export default function NavigationCard() {
@@ -20,10 +18,7 @@ export default function NavigationCard() {
 
   return (
     <Card noPadding={true}>
-      <div className="flex items-center justify-center relative w-full rounded-md overflow-hidden p-4 " >
-            <Image src={logoIcon} alt="logoIcon" width={50} height={50} />
-            <a href="#" className="font-semibold  text-lg "> E.B MACHIRI</a>
-      </div>
+      
       <div className="px-4 py-2 flex justify-between md:block shadow-md shadow-gray-500 md:shadow-none">
         <h2 className="text-gray-400 mb-3 hidden md:block">Navegacion</h2>
         

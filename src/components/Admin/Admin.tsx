@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { cards } from "@/src/data/test/data";
 import { CardAdmin } from "./CardAdmin";
 import { Transactions } from "./Transactions";
-import { Rightbar } from "./Rightbar";
 import useUserStore from "@/src/store/store";
 import { usePathname } from "next/navigation";
 import { LoadingSpinner } from "../LoadingSpinner";
@@ -50,9 +49,6 @@ const Dashboard = () => {
                     <CardAdmin item={item} key={item.id} />
                 ))}
                 </div>
-            </div>
-            <div className="">
-                <Rightbar />
             </div>
         </div>
         )
